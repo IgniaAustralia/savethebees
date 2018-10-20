@@ -10,4 +10,5 @@ follow [this](https://medium.com/@r_musitelli/raspberry-pi-3-headless-setup-109f
 6) Follow the remaining of the article above and setup WIFI
 
 #### Install Azure IoT Edge Module on PI
-follow [this](https://blog.jongallant.com/2017/11/azure-iot-edge-raspberrypi/)
+follow [this](https://thenewstack.io/tutorial-connect-and-configure-raspberry-pi-as-an-azure-iot-edge-device/)
+1) 
