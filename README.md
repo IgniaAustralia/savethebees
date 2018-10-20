@@ -1,4 +1,4 @@
-See [Wiki](https://github.com/IgniaAustralia/savethebees/wiki/Connected-Hive) for project
+See [Wiki](https://github.com/IgniaAustralia/savethebees/wiki/home) for project
 # Vision
 # Components
 # Lifecycle and events
