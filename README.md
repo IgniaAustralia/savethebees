@@ -1,11 +1,10 @@
 # Vision
-For beekeepers who need to manage ther hives the Connectect Hive is a device and mobile app that 
-* alerts to important events (optimal harvest, suspected disease, suspected theft)
-* is simple, affordable and reliable in remote operation
+For beekeepers who need to manage their hives the Connectect Hive is  
+* a hive device that alerts to important events (optimal harvest, suspected disease, suspected theft)
+* a mobile app that is simple, affordable and reliable in remote operation
 
-Unlike proprietary products, the Connected Hive 
-* provides insights by drawing on a large repository of data
-* operates in near real time
+Unlike existing proprietary products, the Connected Hive: 
+* provides near real-time insights to hive status by drawing on a large repository of data
 * is supported by an open community of software developers, academic researchers and industry participants   
 ---
 For bee industry researchers who need to detect hive disease the Connected Hive is a data collection platform that
@@ -14,6 +13,6 @@ For bee industry researchers who need to detect hive disease the Connected Hive 
 * applies machine learning to seek ways to automatically detect disease
 * supports data analytics to explore ways to detect disease
 
-Unlike existing ad hoc hive metering and observations the Connected Hive:
+Unlike existing ad-hoc hive metering and observations the Connected Hive:
 * provides access to a large repository of near real-time data
 * supports development of advanced and novel sensors
