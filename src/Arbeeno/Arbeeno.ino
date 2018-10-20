@@ -20,7 +20,10 @@
 
 TinyGPS gps;
 SoftwareSerial ss(3, 4); // Arduino TX, RX , 
-  
+
+
+//VARIABLES ---------------------------------------------------------------------------------------
+
 static void smartdelay(unsigned long ms);
 static void print_float(float val, float invalid, int len, int prec);
 static void print_int(unsigned long val, unsigned long invalid, int len);
@@ -66,6 +69,7 @@ osjob_t txjob;
 osjob_t timeoutjob;
 static void tx_func (osjob_t* job);
 
+//---------------------------------------------------------------------------------------
 // Transmit the given string and call the given function afterwards
 void tx(const char *str, osjobcb_t func) {
   os_radio(RADIO_RST); // Stop RX first
@@ -78,62 +82,52 @@ void tx(const char *str, osjobcb_t func) {
   Serial.println("TX");
 }
 
+//---------------------------------------------------------------------------------------
 // Enable rx mode and call func when a packet is received
 void rx(osjobcb_t func) {
-  LMIC.osjob.func = func;
-  LMIC.rxtime = os_getTime(); // RX _now_
+ // LMIC.osjob.func = func;
+ // LMIC.rxtime = os_getTime(); // RX _now_
   // Enable "continuous" RX (e.g. without a timeout, still stops after
   // receiving a packet)
-  os_radio(RADIO_RXON);
-  Serial.println("RX");
+ // os_radio(RADIO_RXON);
+ // Serial.println("RX");
 }
 
+//---------------------------------------------------------------------------------------
 static void rxtimeout_func(osjob_t *job) {
   digitalWrite(LED_BUILTIN, LOW); // off
 }
 
-static void rx_func (osjob_t* job) {
-  // Blink once to confirm reception and then keep the led on
-  digitalWrite(LED_BUILTIN, LOW); // off
-  delay(10);
-  digitalWrite(LED_BUILTIN, HIGH); // on
 
-  // Timeout RX (i.e. update led status) after 3 periods without RX
-  os_setTimedCallback(&timeoutjob, os_getTime() + ms2osticks(3*TX_INTERVAL), rxtimeout_func);
 
-  // Reschedule TX so that it should not collide with the other side's
-  // next TX
-  os_setTimedCallback(&txjob, os_getTime() + ms2osticks(TX_INTERVAL/2), tx_func);
-
-  Serial.print("Got ");
-  Serial.print(LMIC.dataLen);
-  Serial.println(" bytes");
-  Serial.write(LMIC.frame, LMIC.dataLen);
-  Serial.println();
-
-  // Restart RX
-  rx(rx_func);
-}
-
+//---------------------------------------------------------------------------------------
 static void txdone_func (osjob_t* job) {
   rx(rx_func);
 }
 
+//-------------------------------------------------------------------------------------
 // log text to USART and toggle LED
+
 static void tx_func (osjob_t* job) {
   // say hello
 
-char result[16]; // Buffer big enough for 7-character float
-dtostrf(flat, 11, 6, result); // Leave room for too large numbers!
+if (flat != TinyGPS::GPS_INVALID_F_ANGLE && flon != TinyGPS::GPS_INVALID_F_ANGLE)
+  {
+char outbuf[80+1];
 
+ strcpy(outbuf, "");
+ dtostrf(flat, 12, 6, outbuf+strlen(outbuf));
+ dtostrf(flon, 12, 6, outbuf+strlen(outbuf));
   
-  tx(result, txdone_func);
+  tx(outbuf, txdone_func);
   // reschedule job every TX_INTERVAL (plus a bit of random to prevent
   // systematic collisions), unless packets are received, then rx_func
   // will reschedule at half this time.
   os_setTimedCallback(job, os_getTime() + ms2osticks(TX_INTERVAL + random(500)), tx_func);
+  }
 }
 
+//---------------------------------------------------------------------------------------
 // application entry point
 void setup() {
     // initialize both serial ports:
@@ -172,6 +166,7 @@ void setup() {
   os_setCallback(&txjob, tx_func);
 }
 
+//---------------------------------------------------------------------------------------
 void loop() {
   // execute scheduled jobs and events
   os_runloop_once();
@@ -186,9 +181,10 @@ void loop() {
   Serial.println();
 
   
-  smartdelay(100);
+  smartdelay(500);
 }
 
+//---------------------------------------------------------------------------------------
 static void print_float(float val, float invalid, int len, int prec)
 {
   if (val == invalid)
@@ -209,6 +205,7 @@ static void print_float(float val, float invalid, int len, int prec)
   smartdelay(0);
 }
 
+//---------------------------------------------------------------------------------------
 static void smartdelay(unsigned long ms)
 {
   unsigned long start = millis();
@@ -220,4 +217,29 @@ static void smartdelay(unsigned long ms)
       gps.encode(ss.read());
     }
   } while (millis() - start < ms);
+}
+
+//---------------------------------------------------------------------------------------
+static void rx_func (osjob_t* job) {
+  // Blink once to confirm reception and then keep the led on
+  //digitalWrite(LED_BUILTIN, LOW); // off
+  //delay(10);
+  
+  //digitalWrite(LED_BUILTIN, HIGH); // on
+
+  // Timeout RX (i.e. update led status) after 3 periods without RX
+  os_setTimedCallback(&timeoutjob, os_getTime() + ms2osticks(3*TX_INTERVAL), rxtimeout_func);
+
+  // Reschedule TX so that it should not collide with the other side's
+  // next TX
+  os_setTimedCallback(&txjob, os_getTime() + ms2osticks(TX_INTERVAL/2), tx_func);
+
+  //Serial.print("Got ");
+  //Serial.print(LMIC.dataLen);
+  //Serial.println(" bytes");
+  //Serial.write(LMIC.frame, LMIC.dataLen);
+  ///Serial.println();
+
+  // Restart RX
+  //rx(rx_func);
 }
