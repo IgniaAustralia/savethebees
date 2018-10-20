@@ -19,6 +19,7 @@
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
 //#include <Seeed_BME280.h>
+#include "BME280.h"
 #include "ReadSensors.h"
 
 TinyGPS gps;
