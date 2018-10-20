@@ -18,7 +18,7 @@
 #include <SPI.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
-#include <Seeed_BME280.h>
+//#include <Seeed_BME280.h>
 #include "ReadSensors.h"
 
 TinyGPS gps;
@@ -33,7 +33,8 @@ static void print_int(unsigned long val, unsigned long invalid, int len);
 static void print_date(TinyGPS &gps);
 static void print_str(const char *str, int len);
 float flat, flon;
- BME280 bme;
+BME280 bmeInternal;
+BME280 bmeExternal;
 
 
 #if !defined(DISABLE_INVERT_IQ_ON_RX)
@@ -115,7 +116,7 @@ static void tx_func (osjob_t* job) {
   // say hello
 
 char* sensors;
-sensors = getSensorData(bme);
+sensors = getSensorData(bmeInternal, bmeExternal);
 
  // Serial.println(fred);
 
@@ -142,9 +143,12 @@ char _bufferStr[110];
 //---------------------------------------------------------------------------------------
 // application entry point
 void setup() {
-    if(!bme.init()){
-    Serial.println("Device error!");
-  }
+  bmeInternal = BME280(0x76);
+  bmeInternal.begin();
+
+  bmeExternal = BME280(0x77);
+  bmeExternal.begin();
+
     // initialize both serial ports:
   Serial.begin(9600);  // Serial to print out GPS info in Arduino IDE
   ss.begin(9600); // SoftSerial port to get GPS data. 

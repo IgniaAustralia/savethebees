@@ -1,38 +1,59 @@
 #include <Wire.h>
-#include <Seeed_BME280.h>
+#include "BME280.h"
 #include "Arduino.h"
 
-char _deviceId[] = "00001"; 
+//BME280 bmeInternal;
+//BME280 bmeExternal;
+
+char _deviceId[] = "00001";
 int _loopDelay = 10000;
 
 int _loudness = 0;
 
-char _bufferStr[30];
-char _tempStr[10];
-char _pressureStr[10];
-char _humidStr[10];
+char _bufferStr[60];
+char _tempIntStr[10];
+char _pressureIntStr[10];
+char _humidIntStr[10];
+
+char _tempExtStr[10];
+char _pressureExtStr[10];
+char _humidExtStr[10];
+
 char _weightStr[10];
 
+//void setup()
+//{
+//	bmeInternal = BME280(0x76);
+//	bmeInternal.begin();
+//
+//	bmeExternal = BME280(0x77);
+//	bmeExternal.begin();
+//
+//	Serial.begin(9600);
+//}
 
-
-char* getSensorData(BME280 bme)
+char* getSensorData(BME280 bmeInternal, BME280 bmeExternal)
 {
-  // Temp, Barometer, Humidity 
-  dtostrf(bme.getTemperature(), 5, 2, _tempStr);
-  dtostrf(bme.getPressure(), 5, 2, _pressureStr);
-  dtostrf(bme.getHumidity(), 5, 2,_humidStr);
+	// Temp, Barometer, Humidity 
+	dtostrf(bmeInternal.readTemp(), 5, 2, _tempIntStr);
+	dtostrf(bmeInternal.readPressure(), 5, 2, _pressureIntStr);
+	dtostrf(bmeInternal.readHumidity(), 5, 2, _humidIntStr);
 
-  // Loudness
-  _loudness = analogRead(0);
+	dtostrf(bmeExternal.readTemp(), 5, 2, _tempExtStr);
+	dtostrf(bmeExternal.readPressure(), 5, 2, _pressureExtStr);
+	dtostrf(bmeExternal.readHumidity(), 5, 2, _humidExtStr);
 
-  // Weight - mocked due to additional hardware requirements
-  dtostrf(22.72, 5, 2, _weightStr);
-  
-  sprintf (_bufferStr, "%s,%s,%s,%s,%s,%d", _deviceId, _tempStr, _pressureStr, _humidStr, _weightStr, _loudness);
+	// Loudness
+	_loudness = analogRead(0);
 
-  Serial.println(_bufferStr);
-  return _bufferStr;
+	// Weight - mocked due to additional hardware requirements
+	dtostrf(22.72, 5, 2, _weightStr);
 
+	sprintf(_bufferStr, "%s,%s,%s,%s,%s,%s,%s,%s,%d", _deviceId, _tempIntStr, _pressureIntStr, _humidIntStr, _tempExtStr, _pressureExtStr, _humidExtStr, _weightStr, _loudness);
 
-  //delay(_loopDelay);
+	Serial.println(_bufferStr);
+
+	return _bufferStr;
+
+	//delay(_loopDelay);
 }

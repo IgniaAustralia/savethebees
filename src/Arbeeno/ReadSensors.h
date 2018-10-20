@@ -4,6 +4,6 @@
   #define ReadSensors_h
    
   //Prototype for helper_function found in HelperFunctions.cpp
- char* getSensorData(BME280 );
+ char* getSensorData(BME280 bmeInternal, ME280 bmeExternal);
    
 #endif
