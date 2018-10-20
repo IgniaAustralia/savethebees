@@ -1,0 +1,12 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Hives</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let hive of hives" (click)="goToDetails(hive.id)">
+            <ion-label>{{hive.name}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

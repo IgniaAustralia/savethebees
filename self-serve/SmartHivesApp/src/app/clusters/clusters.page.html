@@ -1,0 +1,12 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Clusters</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-list>
+        <ion-item *ngFor="let cluster of clusters" (click)="goToDetails(cluster.id)">
+            <ion-label>{{cluster.name}}</ion-label>
+        </ion-item>
+    </ion-list>
+</ion-content>

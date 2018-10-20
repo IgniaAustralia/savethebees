@@ -1,0 +1,7 @@
+{
+  "name": "SmartHivesApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
