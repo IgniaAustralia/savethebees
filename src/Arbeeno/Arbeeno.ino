@@ -12,11 +12,14 @@
  * them to communicate.
  *******************************************************************************/
 
+
 #include <lmic.h>
 #include <hal/hal.h>
 #include <SPI.h>
 #include <SoftwareSerial.h>
 #include <TinyGPS.h>
+#include <Seeed_BME280.h>
+#include "ReadSensors.h"
 
 TinyGPS gps;
 SoftwareSerial ss(3, 4); // Arduino TX, RX , 
@@ -30,7 +33,7 @@ static void print_int(unsigned long val, unsigned long invalid, int len);
 static void print_date(TinyGPS &gps);
 static void print_str(const char *str, int len);
 float flat, flon;
- 
+ BME280 bme;
 
 
 #if !defined(DISABLE_INVERT_IQ_ON_RX)
@@ -111,15 +114,24 @@ static void txdone_func (osjob_t* job) {
 static void tx_func (osjob_t* job) {
   // say hello
 
+char* sensors;
+sensors = getSensorData(bme);
+
+ // Serial.println(fred);
+
 if (flat != TinyGPS::GPS_INVALID_F_ANGLE && flon != TinyGPS::GPS_INVALID_F_ANGLE)
   {
 char outbuf[80+1];
+char _bufferStr[110];
 
  strcpy(outbuf, "");
  dtostrf(flat, 12, 6, outbuf+strlen(outbuf));
  dtostrf(flon, 12, 6, outbuf+strlen(outbuf));
+ // dtostrf(sensors, 12, 6, outbuf+strlen(outbuf));
+    sprintf (_bufferStr, "%s,%s,%d", sensors, outbuf);
+
   
-  tx(outbuf, txdone_func);
+  tx(_bufferStr, txdone_func);
   // reschedule job every TX_INTERVAL (plus a bit of random to prevent
   // systematic collisions), unless packets are received, then rx_func
   // will reschedule at half this time.
@@ -130,6 +142,9 @@ char outbuf[80+1];
 //---------------------------------------------------------------------------------------
 // application entry point
 void setup() {
+    if(!bme.init()){
+    Serial.println("Device error!");
+  }
     // initialize both serial ports:
   Serial.begin(9600);  // Serial to print out GPS info in Arduino IDE
   ss.begin(9600); // SoftSerial port to get GPS data. 
@@ -173,14 +188,17 @@ void loop() {
 
   unsigned long age, date, time, chars = 0;
   unsigned short sentences = 0, failed = 0;
-  static const double LONDON_LAT = 51.508131, LONDON_LON = -0.128002;
+ // static const double LONDON_LAT = 51.508131, LONDON_LON = -0.128002;
 
   gps.f_get_position(&flat, &flon, &age);
   print_float(flat, TinyGPS::GPS_INVALID_F_ANGLE, 10, 6);
   print_float(flon, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
   Serial.println();
 
-  
+
+
+  //Serial.println(fred);
+
   smartdelay(500);
 }
 
