@@ -4,18 +4,22 @@
     </ion-toolbar>
 </ion-header>
 <ion-content padding>
-    <ion-list>
-        <ion-item>
-            <ion-label fixed>Username</ion-label>
-            <ion-input type="text" value=""></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label fixed>Password</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
-        <ion-item>
-            <button ion-button block (click)="logIn()">Sign In</button>
-            <button ion-button block>Register</button>
-        </ion-item>
-    </ion-list>
+  <div style="text-align: center;">
+    <ion-img src="assets/ioBee_logo.jpg" style="width: 100px; height: auto;"></ion-img>
+  </div>
+  <ion-list>
+    <ion-item>
+      <ion-label fixed>Username</ion-label>
+      <ion-input type="text" value=""></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label fixed>Password</ion-label>
+      <ion-input type="password"></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" size="large" (click)="logIn()">
+      Log In
+      <ion-icon slot="end" name="arrow-forward"></ion-icon>
+    </ion-button>
+  </ion-list>
 </ion-content>
