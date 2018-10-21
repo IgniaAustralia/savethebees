@@ -6,6 +6,8 @@ import { ClustersPage } from '../clusters/clusters.page';
 import { ClusterDetailsPage } from '../clusters/cluster-details.page';
 import { HivesPage } from '../hives/hives.page';
 import { HiveDetailsPage } from '../hives/hive-details.page';
+import { NotificationsPage } from '../notifications/notifications.page';
+import { SettingsPage } from '../settings/settings.page';
 
 const routes: Routes = [
     {
@@ -41,6 +43,16 @@ const routes: Routes = [
                 path: 'hives/:id',
                 outlet: 'hives',
                 component: HiveDetailsPage
+            },
+            {
+                path: 'notifications',
+                outlet: 'notifications',
+                component: NotificationsPage
+            },
+            {
+                path: 'settings',
+                outlet: 'settings',
+                component: SettingsPage
             }
         ]
     },

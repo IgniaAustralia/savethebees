@@ -9,6 +9,8 @@ import { HomeRoutingModule } from './home.router.module';
 import { HomePage } from './home.page';
 import { ClustersModule } from '../clusters/clusters.module';
 import { HivesModule } from '../hives/hives.module';
+import { NotificationsModule } from '../notifications/notifications.module';
+import { SettingsModule } from '../settings/settings.module';
 
 @NgModule({
     imports: [
@@ -17,7 +19,9 @@ import { HivesModule } from '../hives/hives.module';
         FormsModule,
         HomeRoutingModule,
         ClustersModule,
-        HivesModule
+        HivesModule,
+        NotificationsModule,
+        SettingsModule
     ],
     declarations: [HomePage]
 })
