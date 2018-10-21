@@ -19,17 +19,11 @@ export class AppComponent {
         this.initializeApp();
     }
 
-    test = "1";
-
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-
-            // Redirect to login page on first load
-            if (window.location.pathname == '' || window.location.pathname == '/') {
-                this.router.navigateByUrl('/login');
-            }
+            this.router.navigateByUrl('/login');
         });
     }
 }
