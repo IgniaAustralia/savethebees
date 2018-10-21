@@ -15,7 +15,7 @@ const routes: Routes = [
             {
                 path: '',
                 redirectTo: '/home/(clusters:clusters)',
-                pathMatch: 'full',
+                pathMatch: 'full'
             },
             {
                 path: 'clusters',

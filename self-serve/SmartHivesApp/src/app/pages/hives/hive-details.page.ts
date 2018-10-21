@@ -18,7 +18,7 @@ export class HiveDetailsPage {
             buttons: [{
                 text: 'Edit details',
                 role: 'destructive',
-                icon: 'edit',
+                icon: 'create',
                 handler: () => {
                     console.log('Edit clicked');
                 }
