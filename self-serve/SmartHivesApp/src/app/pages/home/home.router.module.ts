@@ -28,6 +28,11 @@ const routes: Routes = [
                 component: ClusterDetailsPage
             },
             {
+                path: 'hives/:id',
+                outlet: 'clusters',
+                component: HiveDetailsPage
+            }
+            {
                 path: 'hives',
                 outlet: 'hives',
                 component: HivesPage
@@ -36,7 +41,7 @@ const routes: Routes = [
                 path: 'hives/:id',
                 outlet: 'hives',
                 component: HiveDetailsPage
-            },
+            }
         ]
     },
     {

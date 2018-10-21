@@ -9,6 +9,7 @@ import { NavController } from '@ionic/angular';
 export class ClusterDetailsPage {
     constructor(public navCtrl: NavController) { }
     name = "Pinjarrah Apiary";
+    id = 1;
     hives = [
         {
             id: 1,
@@ -20,6 +21,6 @@ export class ClusterDetailsPage {
         }
     ];
     goToDetails(id: string) {
-        this.navCtrl.navigateForward('/home/(hives:hives/' + id + ')');
+        this.navCtrl.navigateForward('/home/(clusters:hives/' + id + ')');
     }
 }
