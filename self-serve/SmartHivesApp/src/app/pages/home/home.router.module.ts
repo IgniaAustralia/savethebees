@@ -31,7 +31,7 @@ const routes: Routes = [
                 path: 'hives/:id',
                 outlet: 'clusters',
                 component: HiveDetailsPage
-            }
+            },
             {
                 path: 'hives',
                 outlet: 'hives',

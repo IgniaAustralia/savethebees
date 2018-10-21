@@ -11,11 +11,11 @@ export class HivesPage {
     hives = [
         {
             id: 1,
-            name: 'Hive 1'
+            name: 'Hive 27'
         },
         {
             id: 2,
-            name: 'Hive 2'
+            name: 'Hive 36'
         }
     ];
     goToDetails(id: string) {
