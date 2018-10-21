@@ -19,6 +19,6 @@ export class HivesPage {
         }
     ];
     goToDetails(id: string) {
-        this.navCtrl.navigateForward('/hives/' + id);
+        this.navCtrl.navigateForward('/home/(hives:hives/' + id + ')');
     }
 }

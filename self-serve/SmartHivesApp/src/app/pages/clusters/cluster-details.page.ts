@@ -2,23 +2,24 @@ import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 
 @Component({
-    selector: 'app-clusters',
-    templateUrl: 'clusters.page.html',
+    selector: 'app-cluster-details',
+    templateUrl: 'cluster-details.page.html',
     styleUrls: ['clusters.page.scss'],
 })
-export class ClustersPage {
+export class ClusterDetailsPage {
     constructor(public navCtrl: NavController) { }
-    clusters = [
+    name = "Pinjarrah Apiary";
+    hives = [
         {
             id: 1,
-            name: 'Pinjarrah Apiary'
+            name: 'Hive 27'
         },
         {
             id: 2,
-            name: 'Max\'s place'
+            name: 'Hive 36'
         }
     ];
     goToDetails(id: string) {
-        this.navCtrl.navigateForward('/clusters/' + id);
+        this.navCtrl.navigateForward('/home/(hives:hives/' + id + ')');
     }
 }
