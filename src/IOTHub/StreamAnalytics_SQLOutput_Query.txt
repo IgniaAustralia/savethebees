@@ -1,0 +1,26 @@
+with InputData as (select * FROM [SaveTheBeesSensorInput])
+SELECT
+      [deviceID]
+      ,System.TimeStamp AS WindowEnd
+      ,Max([Temperature]) as Temperature
+      ,Max([Weight]) as Weight
+      ,Max([Longitude]) as Longitude
+      ,Max([Lattitude]) as Lattitude
+INTO
+    [SaveTheBeesSQLOutput]
+FROM
+    InputData
+GROUP BY [deviceID],TumblingWindow(hour, 1)
+
+--SELECT
+--       Max([EventEnqueuedUtcTime])
+--      ,[deviceID]
+--      ,Max([Temperature]) as Temperature
+--      ,Max([Weight]) as Weight
+--      ,Max([Longitude]) as Longitude
+--      ,Max([Lattitude]) as Lattitude
+--INTO
+--    [SaveTheBeesBlobOutput]
+--FROM
+--    InputData
+--GROUP BY [deviceID],TumblingWindow(mi, 5)
