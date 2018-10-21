@@ -1,9 +1,41 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>{{name}}</ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{name}}</ion-title>
+    <ion-buttons slot="end" icon-only outline (click)="presentActionSheet()">
+      <ion-icon name="more"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 <ion-content padding>
-    <ion-list>
-    </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        <strong>Brood boxe(s):</strong>
+        <span>2</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        <strong>Top boxe(s):</strong>
+        <span>2</span>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+    <ion-label>
+      <strong>Queen added:</strong>
+      <span>March 2018</span>
+    </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>The content for this card</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

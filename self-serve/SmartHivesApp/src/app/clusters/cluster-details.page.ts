@@ -8,15 +8,15 @@ import { NavController } from '@ionic/angular';
 })
 export class ClusterDetailsPage {
     constructor(public navCtrl: NavController) { }
-    name = "Cluster 1";
+    name = "Pinjarrah Apiary";
     hives = [
         {
             id: 1,
-            name: 'Hive 1'
+            name: 'Hive 27'
         },
         {
             id: 2,
-            name: 'Hive 2'
+            name: 'Hive 36'
         }
     ];
     goToDetails(id: string) {

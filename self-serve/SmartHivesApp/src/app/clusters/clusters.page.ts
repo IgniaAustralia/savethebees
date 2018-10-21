@@ -11,11 +11,11 @@ export class ClustersPage {
     clusters = [
         {
             id: 1,
-            name: 'Cluster 1'
+            name: 'Pinjarrah Apiary'
         },
         {
             id: 2,
-            name: 'Cluster 2'
+            name: 'Max\'s place'
         }
     ];
     goToDetails(id: string) {
