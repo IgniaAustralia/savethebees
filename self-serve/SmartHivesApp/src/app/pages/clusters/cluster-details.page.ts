@@ -20,6 +20,6 @@ export class ClusterDetailsPage {
         }
     ];
     goToDetails(id: string) {
-        this.navCtrl.navigateForward('/hives/' + id);
+        this.navCtrl.navigateForward('/home/(hives:hives/' + id + ')');
     }
 }

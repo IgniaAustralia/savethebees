@@ -19,6 +19,6 @@ export class ClustersPage {
         }
     ];
     goToDetails(id: string) {
-        this.navCtrl.navigateForward('/clusters/' + id);
+        this.navCtrl.navigateForward('/home/(clusters:clusters/' + id + ')');
     }
 }
