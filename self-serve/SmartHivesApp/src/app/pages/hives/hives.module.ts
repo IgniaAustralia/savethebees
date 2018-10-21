@@ -11,17 +11,7 @@ import { HiveDetailsPage } from './hive-details.page';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: HivesPage
-            },
-            {
-                path: ':id',
-                component: HiveDetailsPage
-            }
-        ])
+        IonicModule
     ],
     declarations: [HivesPage, HiveDetailsPage]
 })

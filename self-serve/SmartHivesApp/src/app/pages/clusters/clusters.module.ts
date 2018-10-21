@@ -11,17 +11,7 @@ import { ClusterDetailsPage } from './cluster-details.page';
     imports: [
         CommonModule,
         FormsModule,
-        IonicModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: ClustersPage
-            },
-            {
-                path: ':id',
-                component: ClusterDetailsPage
-            }
-        ])
+        IonicModule
     ],
     declarations: [ClustersPage, ClusterDetailsPage]
 })

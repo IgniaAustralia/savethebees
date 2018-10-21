@@ -9,6 +9,6 @@ import { NavController } from '@ionic/angular';
 export class LoginPage {
     constructor(public navCtrl: NavController) { }
     logIn() {
-        this.navCtrl.navigateForward('/clusters');
+        this.navCtrl.navigateForward('home');
     }
 }
