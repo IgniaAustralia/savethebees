@@ -51,9 +51,8 @@ char* getSensorData(BME280 bmeInternal, BME280 bmeExternal)
 
 	sprintf(_bufferStr, "%s,%s,%s,%s,%s,%s,%s,%s,%d", _deviceId, _tempIntStr, _pressureIntStr, _humidIntStr, _tempExtStr, _pressureExtStr, _humidExtStr, _weightStr, _loudness);
 
-	Serial.println(_bufferStr);
+	//Serial.println(_bufferStr);
 
 	return _bufferStr;
 
-	//delay(_loopDelay);
 }

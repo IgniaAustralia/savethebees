@@ -36,6 +36,8 @@ static void print_str(const char *str, int len);
 float flat, flon;
 BME280 bmeInternal;
 BME280 bmeExternal;
+char flatStr[12];
+char flonStr[12];
 
 
 #if !defined(DISABLE_INVERT_IQ_ON_RX)
@@ -74,72 +76,7 @@ osjob_t txjob;
 osjob_t timeoutjob;
 static void tx_func (osjob_t* job);
 
-//---------------------------------------------------------------------------------------
-// Transmit the given string and call the given function afterwards
-void tx(const char *str, osjobcb_t func) {
-  os_radio(RADIO_RST); // Stop RX first
-  delay(1); // Wait a bit, without this os_radio below asserts, apparently because the state hasn't changed yet
-  LMIC.dataLen = 0;
-  while (*str)
-    LMIC.frame[LMIC.dataLen++] = *str++;
-  LMIC.osjob.func = func;
-  os_radio(RADIO_TX);
-  Serial.println("TX");
-}
 
-//---------------------------------------------------------------------------------------
-// Enable rx mode and call func when a packet is received
-void rx(osjobcb_t func) {
- // LMIC.osjob.func = func;
- // LMIC.rxtime = os_getTime(); // RX _now_
-  // Enable "continuous" RX (e.g. without a timeout, still stops after
-  // receiving a packet)
- // os_radio(RADIO_RXON);
- // Serial.println("RX");
-}
-
-//---------------------------------------------------------------------------------------
-static void rxtimeout_func(osjob_t *job) {
-  digitalWrite(LED_BUILTIN, LOW); // off
-}
-
-
-
-//---------------------------------------------------------------------------------------
-static void txdone_func (osjob_t* job) {
-  rx(rx_func);
-}
-
-//-------------------------------------------------------------------------------------
-// log text to USART and toggle LED
-
-static void tx_func (osjob_t* job) {
-  // say hello
-
-char* sensors;
-sensors = getSensorData(bmeInternal, bmeExternal);
-
- // Serial.println(fred);
-
-if (flat != TinyGPS::GPS_INVALID_F_ANGLE && flon != TinyGPS::GPS_INVALID_F_ANGLE)
-  {
-char outbuf[80+1];
-char _bufferStr[110];
-
- strcpy(outbuf, "");
- dtostrf(flat, 12, 6, outbuf+strlen(outbuf));
- dtostrf(flon, 12, 6, outbuf+strlen(outbuf));
- // dtostrf(sensors, 12, 6, outbuf+strlen(outbuf));
-    sprintf (_bufferStr, "%s,%s,%d", sensors, outbuf);
-
-  
-  tx(_bufferStr, txdone_func);
-  // reschedule job every TX_INTERVAL (plus a bit of random to prevent
-  // systematic collisions), unless packets are received, then rx_func
-  // will reschedule at half this time.
-  os_setTimedCallback(job, os_getTime() + ms2osticks(TX_INTERVAL + random(500)), tx_func);
-  }
-}
 
 //---------------------------------------------------------------------------------------
 // application entry point
@@ -196,15 +133,85 @@ void loop() {
  // static const double LONDON_LAT = 51.508131, LONDON_LON = -0.128002;
 
   gps.f_get_position(&flat, &flon, &age);
-  print_float(flat, TinyGPS::GPS_INVALID_F_ANGLE, 10, 6);
+  print_float(flat, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
   print_float(flon, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
   Serial.println();
 
+  smartdelay(1000);
+}
+
+//---------------------------------------------------------------------------------------
+// Transmit the given string and call the given function afterwards
+void tx(const char *str, osjobcb_t func) {
+  os_radio(RADIO_RST); // Stop RX first
+  delay(1); // Wait a bit, without this os_radio below asserts, apparently because the state hasn't changed yet
+  LMIC.dataLen = 0;
+  while (*str)
+    LMIC.frame[LMIC.dataLen++] = *str++;
+  LMIC.osjob.func = func;
+  os_radio(RADIO_TX);
+  Serial.print("TX");
+    Serial.print(*str);
+  Serial.println();
+}
+
+//---------------------------------------------------------------------------------------
+// Enable rx mode and call func when a packet is received
+void rx(osjobcb_t func) {
+ // LMIC.osjob.func = func;
+ // LMIC.rxtime = os_getTime(); // RX _now_
+  // Enable "continuous" RX (e.g. without a timeout, still stops after
+  // receiving a packet)
+ // os_radio(RADIO_RXON);
+ // Serial.println("RX");
+}
+
+//---------------------------------------------------------------------------------------
+static void rxtimeout_func(osjob_t *job) {
+  digitalWrite(LED_BUILTIN, LOW); // off
+}
 
 
-  //Serial.println(fred);
 
-  smartdelay(500);
+//---------------------------------------------------------------------------------------
+static void txdone_func (osjob_t* job) {
+  rx(rx_func);
+}
+
+//-------------------------------------------------------------------------------------
+// log text to USART and toggle LED
+
+static void tx_func (osjob_t* job) {
+
+   char gpsBuffer[40+1];
+   strcpy(gpsBuffer, "");
+  char bufferStr[110];
+  char* sensors;
+  sensors = getSensorData(bmeInternal, bmeExternal);
+
+  if (flat != TinyGPS::GPS_INVALID_F_ANGLE && flon != TinyGPS::GPS_INVALID_F_ANGLE)
+  {
+      //strcpy(gpsBuffer, "");
+      dtostrf(flat, 12, 6, flatStr);
+      dtostrf(flon, 12, 6, flonStr);
+  }
+  else
+  {
+    strcpy(flatStr, "*");
+    strcpy(flonStr, "*");
+  }
+  
+
+  sprintf (bufferStr, "%s,%s,%s", sensors, flatStr, flonStr);
+  //sprintf (bufferStr, "%s,%s,%s", sensors, flat, flon);
+  //sprintf (bufferStr, "%s-%s~%d", sensors, gpsBuffer);
+  Serial.println(bufferStr);
+  tx(bufferStr, txdone_func);
+    
+  // reschedule job every TX_INTERVAL (plus a bit of random to prevent
+  // systematic collisions), unless packets are received, then rx_func
+  // will reschedule at half this time.
+  os_setTimedCallback(job, os_getTime() + ms2osticks(TX_INTERVAL + random(500)), tx_func);
 }
 
 //---------------------------------------------------------------------------------------
