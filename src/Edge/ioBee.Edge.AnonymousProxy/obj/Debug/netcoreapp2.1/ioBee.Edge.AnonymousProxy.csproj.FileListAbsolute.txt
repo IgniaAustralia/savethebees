@@ -1,0 +1,15 @@
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\bin\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.deps.json
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\bin\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.runtimeconfig.json
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\bin\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.runtimeconfig.dev.json
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\bin\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.dll
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\bin\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.pdb
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.csprojAssemblyReference.cache
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.csproj.CoreCompileInputs.cache
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.RazorAssemblyInfo.cache
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.RazorAssemblyInfo.cs
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.AssemblyInfoInputs.cache
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.AssemblyInfo.cs
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.RazorTargetAssemblyInfo.cache
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.dll
+C:\Users\lshayler\Documents\Visual Studio 2017\Projects\Peter.Shim\ioBee.Edge.AnonymousProxy\obj\Debug\netcoreapp2.1\ioBee.Edge.AnonymousProxy.pdb

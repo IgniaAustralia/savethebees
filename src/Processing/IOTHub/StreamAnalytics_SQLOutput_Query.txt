@@ -1,0 +1,33 @@
+with InputData as (select * FROM [SaveTheBeesSensorInput])
+SELECT
+      [deviceID]
+      ,System.TimeStamp AS WindowEnd
+      ,max([Internal Hive Temp (celcius)]) as [Internal Hive Temp (celcius)]
+      ,max([Internal Hive Pressure]) as [Internal Hive Pressure]
+      ,max([Internal Hive Hummidity]) as [Internal Hive Hummidity]
+      ,max([External Temp])	as  [External Temp]
+      ,max([External Pressure]) as [External Pressure]
+      ,max([External Humidity]) as [External Humidity]
+      ,max([Weight]) as [Weight]
+      ,max([Internal Hive Loudness]) [Internal Hive Loudness]
+      ,max([Vibration State]) as [Vibration State]
+      ,max([Lat]) as [Lat]
+      ,max([Long]) as [Long]
+INTO
+    [SaveTheBeesSQLOutput]
+FROM
+    InputData
+GROUP BY [deviceID],TumblingWindow(hour, 1)
+
+--SELECT
+--       Max([EventEnqueuedUtcTime])
+--      ,[deviceID]
+--      ,Max([Temperature]) as Temperature
+--      ,Max([Weight]) as Weight
+--      ,Max([Longitude]) as Longitude
+--      ,Max([Lattitude]) as Lattitude
+--INTO
+--    [SaveTheBeesBlobOutput]
+--FROM
+--    InputData
+--GROUP BY [deviceID],TumblingWindow(mi, 5)
