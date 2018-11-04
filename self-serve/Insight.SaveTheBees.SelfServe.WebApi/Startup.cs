@@ -1,4 +1,6 @@
-﻿using IdentityServer4.AccessTokenValidation;
+﻿using AutoMapper;
+using IdentityServer4.AccessTokenValidation;
+using Insight.SaveTheBees.SelfServe.WebApi.Models.Application.Data;
 using Insight.SaveTheBees.SelfServe.WebApi.Models.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Insight.SaveTheBees.SelfServe.WebApi
@@ -59,11 +62,15 @@ namespace Insight.SaveTheBees.SelfServe.WebApi
         {
             // Register EF contexts
             services.AddDbContext<IdentityDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(Settings.ConnectionStrings.Identity)));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(Settings.ConnectionStrings.Application)));
 
             // Register identity components
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<IdentityDbContext>()
                 .AddDefaultTokenProviders();
+
+            // Register the mapper
+            services.AddAutoMapper(Models.MapperConfiguration.CreateConfiguration());
 
             // Register the MVC components
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -103,7 +110,10 @@ namespace Insight.SaveTheBees.SelfServe.WebApi
                     options.Authority = Configuration[Settings.Authentication.TokenIssuer];
                     options.ApiName = Configuration[Settings.Authentication.Audience];
                 });
-        }
+
+            // Configure dependency injection for services
+            ConfigureAppServices(services);
+        }        
 
         /// <summary>
         /// Configures the HTTP request pipeline for the application.
@@ -125,6 +135,24 @@ namespace Insight.SaveTheBees.SelfServe.WebApi
             app.UseHttpsRedirection();
             app.UseIdentityServer();
             app.UseMvc();
+        }
+
+        private void ConfigureAppServices(IServiceCollection services)
+        {
+            // Retrieve all service types and register against the interface
+            var types = typeof(Startup).GetTypeInfo().Assembly.GetTypes().Where(x => !x.IsInterface && x.MemberType == MemberTypes.TypeInfo && x.Namespace == "Insight.SaveTheBees.SelfServe.WebApi.Services").ToList();
+            foreach (var serviceType in types)
+            {
+                var interfaceType = serviceType.GetInterfaces().FirstOrDefault();
+                if (interfaceType != null)
+                {
+                    services.AddScoped(interfaceType, serviceType);
+                }
+                else
+                {
+                    services.AddScoped(serviceType);
+                }                
+            }
         }
 
         #endregion

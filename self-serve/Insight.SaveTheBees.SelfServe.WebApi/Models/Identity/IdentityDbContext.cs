@@ -15,7 +15,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Models.Identity
         /// Instantiates a new instance of the <see cref="IdentityDbContext" /> class and
         /// initialises the default identity database components.
         /// </summary>
-        /// <param name="options"></param>
+        /// <param name="options">The context options.</param>
         public IdentityDbContext(DbContextOptions<IdentityDbContext> options) : base(options)
         {
         }
