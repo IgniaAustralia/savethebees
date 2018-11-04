@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs
+/self-serve/.vs
+/self-serve/Insight.SaveTheBees.SelfServe.WebApi/bin
+/self-serve/Insight.SaveTheBees.SelfServe.WebApi/obj
