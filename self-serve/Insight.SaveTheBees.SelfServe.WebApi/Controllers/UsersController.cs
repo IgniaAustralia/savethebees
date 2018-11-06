@@ -1,7 +1,6 @@
-﻿using AutoMapper;
-using Insight.SaveTheBees.SelfServe.WebApi.Exceptions;
-using Insight.SaveTheBees.SelfServe.WebApi.Extensions;
+﻿using Insight.SaveTheBees.SelfServe.WebApi.Exceptions;
 using Insight.SaveTheBees.SelfServe.WebApi.Models.Application;
+using Insight.SaveTheBees.SelfServe.WebApi.Models.Application.Data;
 using Insight.SaveTheBees.SelfServe.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,13 +14,13 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
     /// This controller class contains all the end points to manage users in both the
     /// identity and application databases.
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController
     {
         #region Members
 
-        private readonly IUserService _userService;        
+        private readonly IUserService _userService;
 
         #endregion
 
@@ -32,7 +31,8 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         /// all internal components.
         /// </summary>
         /// <param name="userService">The user service.</param>
-        public UsersController(IUserService userService)
+        /// <param name="context">The application DB context.</param>
+        public UsersController(IUserService userService, ApplicationDbContext context) : base(context)
         {
             _userService = userService;
         }
@@ -42,13 +42,12 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         #region End Points
 
         /// <summary>
-        /// Registers the new user by creating the user details in both the identity and
-        /// application databases.
+        /// Creates the new user in both the identity and application databases.
         /// </summary>
-        /// <param name="user">The user to be registered.</param>
+        /// <param name="user">The user to be created.</param>
         /// <returns>Action result for the end point.</returns>
         [HttpPut]
-        public async Task<IActionResult> Register([FromBody]UserDto user)
+        public async Task<IActionResult> CreateUser([FromBody]UserDto user)
         {
             if (user == null) return BadRequest();
             if (!ValidateUserDto(user, out var errorMessage)) return BadRequest(errorMessage);
@@ -68,7 +67,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return this.InternalServerError(ex.Message);
+                return InternalServerError(ex.Message);
             }
 
             return NoContent();

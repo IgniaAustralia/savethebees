@@ -15,6 +15,16 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Models.Application.Data
         /// </summary>
         public DbSet<ApplicationUser> Users { get; set; }
 
+        /// <summary>
+        /// Gets and sets the hive clusters.
+        /// </summary>
+        public DbSet<HiveCluster> Clusters { get; set; }
+
+        /// <summary>
+        /// Gets and sets the hives.
+        /// </summary>
+        public DbSet<Hive> Hives { get; set; }
+
         #endregion
 
         #region Constructors

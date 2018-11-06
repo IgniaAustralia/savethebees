@@ -80,6 +80,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Services
             if (!string.IsNullOrEmpty(user.FirstName)) claims.Add(new Claim(JwtClaimTypes.GivenName, user.FirstName));
             if (!string.IsNullOrEmpty(user.LastName)) claims.Add(new Claim(JwtClaimTypes.FamilyName, user.LastName));
             if (!string.IsNullOrEmpty(user.FullName)) claims.Add(new Claim(JwtClaimTypes.Name, user.FullName));
+            claims.Add(new Claim("username", user.UserName));
             result = await _userManager.AddClaimsAsync(dbUser, claims);
             if (!result.Succeeded) throw new IdentityErrorsException(result.Errors.ToList());
         }

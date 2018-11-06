@@ -33,6 +33,10 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Models
                 config.CreateMap<UserDto, ApplicationUser>(MemberList.Destination)
                     .ForMember(dest => dest.UserId, opts => opts.Ignore())
                     .ForMember(dest => dest.RowVersion, opts => opts.Ignore());
+
+                config.CreateMap<ClusterDto, HiveCluster>(MemberList.Source);
+
+                config.CreateMap<HiveCluster, ClusterOutputDto>(MemberList.Destination);
             };
         }
 

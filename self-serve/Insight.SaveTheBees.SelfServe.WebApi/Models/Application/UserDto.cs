@@ -1,5 +1,8 @@
 ﻿namespace Insight.SaveTheBees.SelfServe.WebApi.Models.Application
 {
+    /// <summary>
+    /// This DTO class represents the application user.
+    /// </summary>
     public class UserDto
     {
         /// <summary>
