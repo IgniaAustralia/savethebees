@@ -15,11 +15,12 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
     /// <summary>
     /// This controller class contains all the end points to manage hive clusters.
     /// </summary>
-    [Route("api/users/{userId:Guid}/clusters")]
+    [Route("api/users/{userId:Guid}/hives")]
+    [Route("api/users/{userId:Guid}/clusters/{clusterId:Guid}/hives")]
     [ApiController]
     [Authorize(AuthenticationSchemes = "Bearer")]
 
-    public class ClustersController : BaseController
+    public class HivesController : BaseController
     {
         #region Members
 
@@ -30,12 +31,12 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         #region Constructors
 
         /// <summary>
-        /// Instantiates a new instance of <see cref="ClustersController" /> and
-        /// initialises all internal components.
+        /// Instantiates a new instance of <see cref="HivesController" /> and initialises
+        /// all internal components.
         /// </summary>
         /// <param name="context">The application DB context.</param>
         /// <param name="mapper">The mapper instance.</param>
-        public ClustersController(ApplicationDbContext context, IMapper mapper) : base(context)
+        public HivesController(ApplicationDbContext context, IMapper mapper) : base(context)
         {
             Context = context;
             _mapper = mapper;
@@ -46,66 +47,70 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         #region End Points
 
         /// <summary>
-        /// Creates the new cluster.
+        /// Creates the new hive.
         /// </summary>
         /// <param name="userId">The user id.</param>
-        /// <param name="cluster">The cluster to be created.</param>
+        /// <param name="clusterId">The cluster id.</param>
+        /// <param name="hive">The hive to be created.</param>
         /// <returns>Action result for the end point.</returns>
         [HttpPut]
-        public async Task<IActionResult> CreateCluster([FromRoute]Guid userId, [FromBody]ClusterDto cluster)
+        public async Task<IActionResult> CreateHive([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromBody]HiveDto hive)
         {
             // Validate permission
             if (!await ValidatePermission(userId)) return Unauthorized();
 
-            // Create the cluster
-            await AddClusterToDatabase(userId, cluster);
+            // Create the hive
+            await AddHiveToDatabase(userId, clusterId, hive);
             return NoContent();
         }
 
         /// <summary>
-        /// Retrieves the clusters.
+        /// Retrieves the hives.
         /// </summary>
         /// <param name="userId">The user id.</param>
+        /// <param name="clusterId">The cluster id.</param>
         /// <returns>Action result for the end point.</returns>
         [HttpGet]
-        public async Task<IActionResult> RetrieveClusters([FromRoute]Guid userId)
+        public async Task<IActionResult> RetrieveHives([FromRoute]Guid userId, [FromRoute]Guid? clusterId)
         {
             // Validate permission
             if (!await ValidatePermission(userId)) return Unauthorized();
 
             // Retrieve the clusters
-            var clusters = await RetrieveClustersFromDatabase(userId);
-            if (!clusters.Any()) return NotFound();
-            return new JsonResult(clusters);
+            var hives = await RetrieveHivesFromDatabase(userId, clusterId);
+            if (!hives.Any()) return NotFound();
+            return new JsonResult(hives);
         }
 
         /// <summary>
-        /// Retrieves the cluster.
+        /// Retrieves the hive.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="clusterId">The cluster id.</param>
+        /// <param name="hiveId">The hive id.</param>
         /// <returns>Action result for the end point.</returns>
-        [HttpGet("{clusterId:Guid}")]
-        public async Task<IActionResult> RetrieveCluster([FromRoute]Guid userId, [FromRoute]Guid clusterId)
+        [HttpGet("{hiveId:Guid}")]
+        public async Task<IActionResult> RetrieveHive([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromRoute]Guid hiveId)
         {
             // Validate permission
             if (!await ValidatePermission(userId)) return Unauthorized();
 
             // Retrieve the cluster
-            var cluster = await RetrieveClusterFromDatabase(clusterId);
+            var cluster = await RetrieveHiveFromDatabase(clusterId, hiveId);
             if (cluster == null) return NotFound();
             return new JsonResult(cluster);
         }
 
         /// <summary>
-        /// Updates the cluster.
+        /// Updates the hive.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="clusterId">The cluster id.</param>
-        /// <param name="cluster">The cluster to update.</param>
+        /// <param name="hiveId">The hive id.</param>
+        /// <param name="hive">The hive to update.</param>
         /// <returns>Action result for the end point.</returns>
-        [HttpPost("{clusterId:Guid}")]
-        public async Task<IActionResult> UpdateCluster([FromRoute]Guid userId, [FromRoute]Guid clusterId, [FromBody]ClusterDto cluster)
+        [HttpPost("{hiveId:Guid}")]
+        public async Task<IActionResult> UpdateHive([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromRoute]Guid hiveId, [FromBody]HiveDto hive)
         {
             // Validate permission
             if (!await ValidatePermission(userId)) return Unauthorized();
@@ -113,7 +118,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             // Check if the cluster exists
             try
             {
-                await UpdateClusterInDatabase(clusterId, cluster);
+                await UpdateHiveInDatabase(hiveId, clusterId, hive);
             }
             catch (NotFoundException)
             {
@@ -123,18 +128,19 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             {
                 return InternalServerError(ex.Message);
             }
-            
+
             return NoContent();
         }
 
         /// <summary>
-        /// Deletes the cluster.
+        /// Deletes the hive.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="clusterId">The cluster id.</param>
+        /// <param name="hiveId">The hive id.</param>
         /// <returns>Action result for the end point.</returns>
-        [HttpDelete("{clusterId:Guid}")]
-        public async Task<IActionResult> DeleteCluster([FromRoute]Guid userId, [FromRoute]Guid clusterId)
+        [HttpDelete("{hiveId:Guid}")]
+        public async Task<IActionResult> DeleteCluster([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromRoute]Guid hiveId)
         {
             // Validate permission
             if (!await ValidatePermission(userId)) return Unauthorized();
@@ -142,7 +148,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             // Check if the cluster exists
             try
             {
-                await DeleteClusterFromDatabase(clusterId);
+                await DeleteHiveFromDatabase(clusterId, hiveId);
             }
             catch (NotFoundException)
             {
@@ -154,49 +160,57 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             }
 
             return NoContent();
-        }        
+        }
 
         #endregion
 
         #region Methods
 
-        private async Task AddClusterToDatabase(Guid userId, ClusterDto cluster)
+        private async Task AddHiveToDatabase(Guid userId, Guid? clusterId, HiveDto hive)
         {
-            var hiveCluster = _mapper.Map<HiveCluster>(cluster);
-            hiveCluster.UserId = userId;
-            await Context.Clusters.AddAsync(hiveCluster);
+            var newHive = _mapper.Map<Hive>(hive);
+            newHive.UserId = userId;
+            newHive.ClusterId = clusterId;
+            await Context.Hives.AddAsync(newHive);
             await Context.SaveChangesAsync();
         }
 
-        private async Task<IList<ClusterOutputDto>> RetrieveClustersFromDatabase(Guid userId)
+        private async Task<IList<HiveOutputDto>> RetrieveHivesFromDatabase(Guid userId, Guid? clusterId)
         {
-            var clusters = await Context.Clusters.Where(x => x.UserId == userId).ToListAsync();
-            return _mapper.Map<IList<ClusterOutputDto>>(clusters);
+            var hives = clusterId.HasValue
+                ? await Context.Hives.Where(x => x.UserId == userId && x.ClusterId == clusterId.Value).ToListAsync()
+                : await Context.Hives.Where(x => x.UserId == userId).ToListAsync();
+            return _mapper.Map<IList<HiveOutputDto>>(hives);
         }
 
-        private async Task<ClusterOutputDto> RetrieveClusterFromDatabase(Guid clusterId)
+        private async Task<HiveOutputDto> RetrieveHiveFromDatabase(Guid? clusterId, Guid hiveId)
         {
-            var cluster = await Context.Clusters.FirstOrDefaultAsync(x => x.ClusterId == clusterId);
-            return _mapper.Map<ClusterOutputDto>(cluster);
+            var hive = clusterId.HasValue
+                ? await Context.Hives.FirstOrDefaultAsync(x => x.ClusterId == clusterId.Value && x.HiveId == hiveId)
+                : await Context.Hives.FirstOrDefaultAsync(x => x.HiveId == hiveId);
+            return _mapper.Map<HiveOutputDto>(hive);
         }
 
-        private async Task UpdateClusterInDatabase(Guid clusterId, ClusterDto cluster)
+        private async Task UpdateHiveInDatabase(Guid hiveId, Guid? clusterId, HiveDto hive)
         {
-            var currentCluster = await Context.Clusters.FirstOrDefaultAsync(x => x.ClusterId == clusterId);
-            if (currentCluster == null) throw new NotFoundException();
+            var currentHive = await Context.Hives.FirstOrDefaultAsync(x => x.HiveId == hiveId);
+            if (currentHive == null) throw new NotFoundException();
 
             // Update the values and save into the database
-            currentCluster.Name = cluster.Name;
+            currentHive.Name = hive.Name;
+            currentHive.ClusterId = clusterId;
             await Context.SaveChangesAsync();
         }
 
-        private async Task DeleteClusterFromDatabase(Guid clusterId)
+        private async Task DeleteHiveFromDatabase(Guid? clusterId, Guid hiveId)
         {
-            var currentCluster = await Context.Clusters.FirstOrDefaultAsync(x => x.ClusterId == clusterId);
-            if (currentCluster == null) throw new NotFoundException();
+            var currentHive = clusterId.HasValue
+                ? await Context.Hives.FirstOrDefaultAsync(x => x.ClusterId == clusterId.Value && x.HiveId == hiveId)
+                : await Context.Hives.FirstOrDefaultAsync(x => x.HiveId == hiveId);
+            if (currentHive == null) throw new NotFoundException();
 
             // Delete the cluster from database
-            Context.Clusters.Remove(currentCluster);
+            Context.Hives.Remove(currentHive);
             await Context.SaveChangesAsync();
         }
 

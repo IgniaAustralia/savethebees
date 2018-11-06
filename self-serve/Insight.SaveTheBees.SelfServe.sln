@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Insight.SaveTheBees.SelfServe.WebApi", "Insight.SaveTheBees.SelfServe.WebApi\Insight.SaveTheBees.SelfServe.WebApi.csproj", "{1D624CFA-44F3-4F1C-91B0-919E8FC004B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Insight.SaveTheBees.SelfServe.WebApi", "Insight.SaveTheBees.SelfServe.WebApi\Insight.SaveTheBees.SelfServe.WebApi.csproj", "{1D624CFA-44F3-4F1C-91B0-919E8FC004B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{54A6ED29-9813-4057-A3FE-3B645F31E94A}"
+	ProjectSection(SolutionItems) = preProject
+		Insight.SaveTheBees.SelfServe.WebApi\SaveTheBees.postman_collection.json = Insight.SaveTheBees.SelfServe.WebApi\SaveTheBees.postman_collection.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

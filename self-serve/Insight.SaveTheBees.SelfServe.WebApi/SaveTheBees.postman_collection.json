@@ -1,0 +1,692 @@
+{
+	"info": {
+		"_postman_id": "e0325db6-ddae-4678-99f7-d3745c41476c",
+		"name": "SaveTheBees",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "32369f53-f6ba-448c-9160-78574060d7a4",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "6bd213c9-970a-4010-8464-c64e9f488097",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "wfisk",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "P@ssword1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://localhost:5001/connect/token",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"connect",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users - PUT - Create User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDEzMTIyMzYsImV4cCI6MTU0MTMxNTgzNiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJmODBjYjEzLTBhMjYtNGNjMi01M2E3LTA4ZDY0MjE1OTdkNSIsImF1dGhfdGltZSI6MTU0MTMxMjIzNiwiaWRwIjoibG9jYWwiLCJzY29wZSI6WyJTYXZlVGhlQmVlc1dlYkFwaSJdLCJhbXIiOlsicHdkIl19.Z70TZ41oJp9oOrjQedCQ-tXq9mO0-82kMk67RA96szvXKye06_bAbl420Inx3U8uhRiDFbrMzmetJVrEQiDvDKPupGfQlmZ6WXxv8gVzptkbybA4jcoGUv41gnOKcWeAUgOLmUM9lECj1nSkRkdr1g48DyEWE4jEMSwAq2bn92ptdJnIfFCTJOLBUZgrA8cOqu42TQ01F4DjGST-Z3ydT7gXOPLIHXgJM9T-ce-yk3XEEynEfgtPa8ENEccMT5pRjrNFEXrnILyUKflm1s44ewl6pyQjVZAUF9VmtgojHAlJni97zNMzNzboVbPSWXF4_TddACUl_9-U8GQ4iwgj0A",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"userName\": \"daredevil\",\n\t\"password\": \"P@ssword1\",\n\t\"emailAddress\": \"daredevil@marvel.com\",\n\t\"firstName\": \"Matt\",\n\t\"lastName\": \"Murdoch\",\n\t\"fullName\": \"Matt Murdoch\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clusters - PUT - Create Cluster",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE0Nzg5NjYsImV4cCI6MTU0MTQ4MjU2NiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTQ3ODk2NiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.QqRm4tr_6MyZ3eoi9ZP56qunNPGzKcbmWngeeBogJFd0wlk-efyCXd5CaC4LciB-RW-aSC1FaQPkJv3t3qr_o4hiXEvXeM5o_R5EYH5NaI1gcsngiV4jz3ARPb4WK1mhh5rCWdG_JC5Ah2TccwInOQXYVfOzhJzbEeKtdRiqLy7ngYKCXh4G8XrwgisIlgz_mu8SBss0I9cWI20CWUMpxMLOKv47Dnyln3txqAA4okeahTm7uznTNRNLTH6gwXDwBzkVRCmnC3tQOzgC-4giXqcGO9v6-AW6oVba2MgucrD2wVm9d0cFoQjH_1hPIE2IvEKf_s8ggyMBRHpE6Pm95w",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Mandurah Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clusters - GET - Retrieve Clusters",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDY2NDEsImV4cCI6MTU0MTUxMDI0MSwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNjY0MCwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.snfznPWV46mSMth0AiF0qJBcbeK_a_V36E1EY8cHJbHI415OBXLVlfT25ksypJ3F2BrO8NvRYzMmM1P5FFm1UPVcEkZ1JujwC3g6DTkQ4Vlt0jVueXQTJ-5Np0X3hY6dZV2XvsWH8nTWJwiVoT_X-HjTMlpUIvCsUTJEszxOqOSsHF9lx6ZocMx6uM7_KnWz5pTRwXviYp6aWXHSktF0XCw0C2yIyH4i0AXIOlbXDHjTNPoxx5p9XEkk0PPRUH9lytBbQY_tVBHPZ38Su-fqYubmLz5GBd2Vy49GWGCatOWood7Vbj-ysH1gwgDLdandfFXosB6mnd49I6uaeuBnpA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/ADBD58ED-3D27-4541-33CB-08D64347DA9E/clusters",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"ADBD58ED-3D27-4541-33CB-08D64347DA9E",
+						"clusters"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clusters - GET - Retrieve Cluster",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE0ODM1NTAsImV4cCI6MTU0MTQ4NzE1MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTQ4MzU1MCwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.czzh-r8x8oLbUSY6kyzhSNhHgWPxRYFdI8cpeadtXiSOQt1198nu_CT6zAv4SUNSkKW5MciUHiXHpoS1diJCUfFSJtN8u8qHRj_ajTr-BeEZsEuU9X6CqawYejwccYxQTTQ-ZLyC9y80kn1a0G021BC7zdH3pPNwpIQc6-9LG1GbiiLyjkFepTE1a4zP9iRnAOkkVUZm4YbIFmLw0BDHkqgc0OjUrCMWc-jOKTF2p-CZRJrME5mC3sdKLv9yaIgSiOkzi0DmsQa4jLgAcELbqZRRa6VOudvlz77sbvdvacj1un_cFuNxQmBj4Ap1fRqGBjvyN-6P3cnSbwt2ol0E5A"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/31f8d8ab-3e17-4b90-6d97-08d6439e7206",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"31f8d8ab-3e17-4b90-6d97-08d6439e7206"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clusters - POST - Update Cluster",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE0ODM1NTAsImV4cCI6MTU0MTQ4NzE1MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTQ4MzU1MCwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.czzh-r8x8oLbUSY6kyzhSNhHgWPxRYFdI8cpeadtXiSOQt1198nu_CT6zAv4SUNSkKW5MciUHiXHpoS1diJCUfFSJtN8u8qHRj_ajTr-BeEZsEuU9X6CqawYejwccYxQTTQ-ZLyC9y80kn1a0G021BC7zdH3pPNwpIQc6-9LG1GbiiLyjkFepTE1a4zP9iRnAOkkVUZm4YbIFmLw0BDHkqgc0OjUrCMWc-jOKTF2p-CZRJrME5mC3sdKLv9yaIgSiOkzi0DmsQa4jLgAcELbqZRRa6VOudvlz77sbvdvacj1un_cFuNxQmBj4Ap1fRqGBjvyN-6P3cnSbwt2ol0E5A"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Pinjarrah Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/31f8d8ab-3e17-4b90-6d97-08d6439e7206",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"31f8d8ab-3e17-4b90-6d97-08d6439e7206"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Clusters - DELETE - Delete Cluster",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE0ODM1NTAsImV4cCI6MTU0MTQ4NzE1MCwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTQ4MzU1MCwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.czzh-r8x8oLbUSY6kyzhSNhHgWPxRYFdI8cpeadtXiSOQt1198nu_CT6zAv4SUNSkKW5MciUHiXHpoS1diJCUfFSJtN8u8qHRj_ajTr-BeEZsEuU9X6CqawYejwccYxQTTQ-ZLyC9y80kn1a0G021BC7zdH3pPNwpIQc6-9LG1GbiiLyjkFepTE1a4zP9iRnAOkkVUZm4YbIFmLw0BDHkqgc0OjUrCMWc-jOKTF2p-CZRJrME5mC3sdKLv9yaIgSiOkzi0DmsQa4jLgAcELbqZRRa6VOudvlz77sbvdvacj1un_cFuNxQmBj4Ap1fRqGBjvyN-6P3cnSbwt2ol0E5A"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/31f8d8ab-3e17-4b90-6d97-08d6439e7206",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"31f8d8ab-3e17-4b90-6d97-08d6439e7206"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - PUT - Create Hive from User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDc2NjIsImV4cCI6MTU0MTUxMTI2MiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNzY2MiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.z3xfXt4Y-B0e8OX8t0Hd2e7WpFN-8Z2SgcpbXShAn_TEnC_l_9juHLbDyyDD663oJgD1lPhVNl53NWw2wGl2qBfDRvhcRVgx_WX_j1EvX55Eywi1P8mHdyZU7h8exUZ74wo6BJYuXrgeMyEsRvkSz0_3GQ6eG_Iw-9wrjvR3-9Wyz2V_9yk9K2x4Lk1Weg83knuo0Ft_r7SqKqWE9qFbZdu5MmzNrxMARp12vm7X6AS413-hZE8IqFmmcTcs7C28jSeAzDPNSOkjUvUbezXrzovoi6W5oTRtenxUgYaK7yqha58lRJOGRGmzMspHtCOwwi_2t0DoHx50DjegtTv_1w"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hive 27\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/hives",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"hives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - PUT - Create Hive from Cluster",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDc2NjIsImV4cCI6MTU0MTUxMTI2MiwiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNzY2MiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.z3xfXt4Y-B0e8OX8t0Hd2e7WpFN-8Z2SgcpbXShAn_TEnC_l_9juHLbDyyDD663oJgD1lPhVNl53NWw2wGl2qBfDRvhcRVgx_WX_j1EvX55Eywi1P8mHdyZU7h8exUZ74wo6BJYuXrgeMyEsRvkSz0_3GQ6eG_Iw-9wrjvR3-9Wyz2V_9yk9K2x4Lk1Weg83knuo0Ft_r7SqKqWE9qFbZdu5MmzNrxMARp12vm7X6AS413-hZE8IqFmmcTcs7C28jSeAzDPNSOkjUvUbezXrzovoi6W5oTRtenxUgYaK7yqha58lRJOGRGmzMspHtCOwwi_2t0DoHx50DjegtTv_1w"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hive 28\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/4f5ca316-5a42-4a55-a09f-08d643a168f7/hives",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"4f5ca316-5a42-4a55-a09f-08d643a168f7",
+						"hives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - GET - Retrieve HIves from User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/ADBD58ED-3D27-4541-33CB-08D64347DA9E/hives",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"ADBD58ED-3D27-4541-33CB-08D64347DA9E",
+						"hives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - GET - Retrieve HIves from Cluster",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/ADBD58ED-3D27-4541-33CB-08D64347DA9E/clusters/4f5ca316-5a42-4a55-a09f-08d643a168f7/hives",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"ADBD58ED-3D27-4541-33CB-08D64347DA9E",
+						"clusters",
+						"4f5ca316-5a42-4a55-a09f-08d643a168f7",
+						"hives"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - GET - Retrieve Hive from User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/hives/17f1c372-df70-40d6-5776-08d643e43673",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"hives",
+						"17f1c372-df70-40d6-5776-08d643e43673"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - GET - Retrieve Hive from Cluster",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Yallingup Apiary\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/4f5ca316-5a42-4a55-a09f-08d643a168f7/hives/7cf63a6c-deee-41ce-5775-08d643e43673",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"4f5ca316-5a42-4a55-a09f-08d643a168f7",
+						"hives",
+						"7cf63a6c-deee-41ce-5775-08d643e43673"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - POST - Update Hive from User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hive 29\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/hives/471eeaa5-a5c2-42be-769e-08d643d35403",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"hives",
+						"471eeaa5-a5c2-42be-769e-08d643d35403"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - POST - Update Hive from Cluster",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hive 28\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/4f5ca316-5a42-4a55-a09f-08d643a168f7/hives/471eeaa5-a5c2-42be-769e-08d643d35403",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"4f5ca316-5a42-4a55-a09f-08d643a168f7",
+						"hives",
+						"471eeaa5-a5c2-42be-769e-08d643d35403"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - DELETE - Delete Hive from User",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hive 29\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/hives/7cf63a6c-deee-41ce-5775-08d643e43673",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"hives",
+						"7cf63a6c-deee-41ce-5775-08d643e43673"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hives - DELETE - Delete Hive from Cluster",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjE3NzVlYzhhYzJkNWIyZmRhYWUxODI1OGI4MGZiZTVkIiwidHlwIjoiSldUIn0.eyJuYmYiOjE1NDE1MDQ4MzcsImV4cCI6MTU0MTUwODQzNywiaXNzIjoiaHR0cHM6Ly9sb2NhbGhvc3Q6NTAwMSIsImF1ZCI6WyJodHRwczovL2xvY2FsaG9zdDo1MDAxL3Jlc291cmNlcyIsIlNhdmVUaGVCZWVzV2ViQXBpIl0sImNsaWVudF9pZCI6IjMyMzY5ZjUzLWY2YmEtNDQ4Yy05MTYwLTc4NTc0MDYwZDdhNCIsInN1YiI6ImJiODA0ZWM2LTQxZTMtNGQ4Zi05YmQ1LTA4ZDY0MzQ3ZGI0YyIsImF1dGhfdGltZSI6MTU0MTUwNDgzNiwiaWRwIjoibG9jYWwiLCJ1c2VybmFtZSI6IndmaXNrIiwic2NvcGUiOlsiU2F2ZVRoZUJlZXNXZWJBcGkiXSwiYW1yIjpbInB3ZCJdfQ.COETXnjlewAD7cqs9cK8TbTt31abCQZ803uRKNsejJKnpoHDGKxQctkcaEoN7suczxFf9jLb2bjABADTgV6rhcdZWbY8xaHyqWV1pHOWkuSxvrpRLN9IqrrewAhyTyHiF8z6mxdAoYHNbLVuucEn8_guetgIXwbwgHhPF3nQagcBHE9XjrFdp2L1fq9rkMz3ZhSHMCNbr5ZHNHTLZb6zxRLZyoA5n9x-1oEvV5Qk4V5H59gok8CP-yrtpBvQ_N396NmuGRsA2IFdCvPudyFEAS48N6cps7fQRumltlbx4RuCRAGmePszdxkucAtRECgKiW8qAIoatN8qlgQVPYWBiA"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Hive 29\"\n}"
+				},
+				"url": {
+					"raw": "https://localhost:5001/api/users/adbd58ed-3d27-4541-33cb-08d64347da9e/clusters/4f5ca316-5a42-4a55-a09F-08d643a168f7/hives/17f1c372-df70-40d6-5776-08d643e43673",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"users",
+						"adbd58ed-3d27-4541-33cb-08d64347da9e",
+						"clusters",
+						"4f5ca316-5a42-4a55-a09F-08d643a168f7",
+						"hives",
+						"17f1c372-df70-40d6-5776-08d643e43673"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
