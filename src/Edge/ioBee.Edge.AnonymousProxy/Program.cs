@@ -24,6 +24,7 @@ namespace ioBee.Edge.AnonymousProxy
                 config.SetBasePath(Directory.GetCurrentDirectory());
                 config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: false);
                 config.AddEnvironmentVariables();
+                config.AddUserSecrets(typeof(Program).Assembly);
             })
            .UseStartup<Startup>();
     }

@@ -22,8 +22,6 @@ namespace ioBee.Edge.AnonymousProxy
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //"IOTHUB_DEVICE_CONN_STRING": "HostName=SaveTheBees-Iot-Hub.azure-devices.net;DeviceId=DeviceBeeHive1;SharedAccessKey=ZFcJsSjuoqrzcKwiSFlAy99Cf2zc5t0KnfL3BlDSXCI="
-
             _deviceConnectionString = configuration["IOTHUB_DEVICE_CONN_STRING"];
         }
 
