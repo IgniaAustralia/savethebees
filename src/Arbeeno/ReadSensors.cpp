@@ -2,15 +2,17 @@
 #include "BME280.h"
 #include "Arduino.h"
 
-//BME280 bmeInternal;
-//BME280 bmeExternal;
-
 char _deviceId[] = "00001";
-int _loopDelay = 10000;
+const int _loopDelay = 1000;
+const int _switchTilt = 5;
 
 int _loudness = 0;
 
-char _bufferStr[60];
+int _tiltSwitch = 0;
+int _tmpTiltSwitch = 0;
+bool _movement = false;
+
+char _bufferStr[100];
 char _tempIntStr[10];
 char _pressureIntStr[10];
 char _humidIntStr[10];
@@ -21,16 +23,6 @@ char _humidExtStr[10];
 
 char _weightStr[10];
 
-//void setup()
-//{
-//	bmeInternal = BME280(0x76);
-//	bmeInternal.begin();
-//
-//	bmeExternal = BME280(0x77);
-//	bmeExternal.begin();
-//
-//	Serial.begin(9600);
-//}
 
 char* getSensorData(BME280 bmeInternal, BME280 bmeExternal)
 {
@@ -49,11 +41,19 @@ char* getSensorData(BME280 bmeInternal, BME280 bmeExternal)
 	// Weight - mocked due to additional hardware requirements
 	dtostrf(22.72, 5, 2, _weightStr);
 
-	sprintf(_bufferStr, "%s,%s,%s,%s,%s,%s,%s,%s,%d", _deviceId, _tempIntStr, _pressureIntStr, _humidIntStr, _tempExtStr, _pressureExtStr, _humidExtStr, _weightStr, _loudness);
+	// Determine a change in the tilt switch value
+	_movement = false;
+	_tmpTiltSwitch = digitalRead(_switchTilt);
+
+	if (_tmpTiltSwitch != _tiltSwitch)
+	{
+		_tiltSwitch = _tmpTiltSwitch;
+		_movement = true;
+	}
+
+	sprintf(_bufferStr, "%s,%s,%s,%s,%s,%s,%s,%s,%d,%i", _deviceId, _tempIntStr, _pressureIntStr, _humidIntStr, _tempExtStr, _pressureExtStr, _humidExtStr, _weightStr, _loudness, _movement);
 
 	Serial.println(_bufferStr);
 
 	return _bufferStr;
-
-	//delay(_loopDelay);
 }
