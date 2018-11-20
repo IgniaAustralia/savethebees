@@ -1,5 +1,3 @@
-#include <BridgeHttpClient.h>
-
 /*******************************************************************************
  * Copyright (c) 2015 Matthijs Kooijman
  *
@@ -34,7 +32,7 @@
 // this interval should not also be increased.
 // See this spreadsheet for an easy airtime and duty cycle calculator:
 // https://docs.google.com/spreadsheets/d/1voGAtQAjC1qBmaVuP1ApNKs1ekgUjavHuVQIXyYSvNc 
-#define TX_INTERVAL 2000
+#define TX_INTERVAL 5000
 
 // Pin mapping
 const lmic_pinmap lmic_pins = {
@@ -53,6 +51,67 @@ void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
 
 void onEvent (ev_t ev) {
+Console.print(os_getTime());
+    Console.print(": ");
+    switch(ev) {
+        case EV_SCAN_TIMEOUT:
+            Console.println(F("EV_SCAN_TIMEOUT"));
+            break;
+        case EV_BEACON_FOUND:
+            Console.println(F("EV_BEACON_FOUND"));
+            break;
+        case EV_BEACON_MISSED:
+            Console.println(F("EV_BEACON_MISSED"));
+            break;
+        case EV_BEACON_TRACKED:
+            Console.println(F("EV_BEACON_TRACKED"));
+            break;
+        case EV_JOINING:
+            Console.println(F("EV_JOINING"));
+            break;
+        case EV_JOINED:
+            Console.println(F("EV_JOINED"));
+            break;
+        case EV_RFU1:
+            Console.println(F("EV_RFU1"));
+            break;
+        case EV_JOIN_FAILED:
+            Console.println(F("EV_JOIN_FAILED"));
+            break;
+        case EV_REJOIN_FAILED:
+            Console.println(F("EV_REJOIN_FAILED"));
+            break;
+        case EV_TXCOMPLETE:
+            Console.println(F("EV_TXCOMPLETE (includes waiting for RX windows)"));
+            if (LMIC.txrxFlags & TXRX_ACK)
+              Console.println(F("Received ack"));
+            if (LMIC.dataLen) {
+              Console.println(F("Received "));
+              Console.println(LMIC.dataLen);
+              Console.println((char*)LMIC.frame);
+              Console.println(F(" bytes of payload"));
+            }
+            break;
+        case EV_LOST_TSYNC:
+            Console.println(F("EV_LOST_TSYNC"));
+            break;
+        case EV_RESET:
+            Console.println(F("EV_RESET"));
+            break;
+        case EV_RXCOMPLETE:
+            // data received in ping slot
+            Console.println(F("EV_RXCOMPLETE"));
+            break;
+        case EV_LINK_DEAD:
+            Console.println(F("EV_LINK_DEAD"));
+            break;
+        case EV_LINK_ALIVE:
+            Console.println(F("EV_LINK_ALIVE"));
+            break;
+         default:
+            Console.println(F("Unknown event"));
+            break;
+    }
 }
 
 osjob_t txjob;
@@ -78,7 +137,12 @@ void rx(osjobcb_t func) {
   // Enable "continuous" RX (e.g. without a timeout, still stops after
   // receiving a packet)
   os_radio(RADIO_RXON);
-  Console.println("RX");
+  Console.println("<RX");
+  Console.println(LMIC.freq);
+  Console.println(LMIC.txpow);
+  Console.println(LMIC.datarate);
+  Console.println(LMIC.rps);
+  Console.println("RX>");
 }
 
 static void rxtimeout_func(osjob_t *job) {
@@ -100,17 +164,13 @@ static void rx_func (osjob_t* job) {
 
   Console.print("Got ");
   Console.print(LMIC.dataLen);
-  Console.println(" bytes");
-  //Console.println(LMIC.frame);
-  //String str(LMIC.frame);
-  Console.print(LMIC.frame[0]);
-    Console.print(LMIC.frame[1]);
-      Console.print(LMIC.frame[2]);
-        Console.print(LMIC.frame[3]);
-          Console.print(LMIC.frame[4]);
-            Console.print(LMIC.frame[5]);
-              Console.print(LMIC.frame[6]);
-  Console.print(LMIC.dataLen);
+  Console.println(" bytes starting at ");
+  Console.print(LMIC.dataBeg);
+    
+  for(int i = 0; i < LMIC.dataLen; i++)
+  {
+    Console.println(LMIC.frame[i]);
+  }
   Console.println();
   Console.println(" pushing to shim");
     pushShim();
@@ -126,7 +186,7 @@ static void txdone_func (osjob_t* job) {
 // log text to USART and toggle LED
 static void tx_func (osjob_t* job) {
   // say hello
-  tx("Thanks bees", txdone_func);
+  tx("", txdone_func);
   // reschedule job every TX_INTERVAL (plus a bit of random to prevent
   // systematic collisions), unless packets are received, then rx_func
   // will reschedule at half this time.
@@ -135,8 +195,8 @@ static void tx_func (osjob_t* job) {
 
 // application entry point
 void setup() {
-  //Serial.begin(115200);
-  //Serial.println("Starting");
+  //Console.begin(115200);
+  //Console.println("Starting");
 
     Bridge.begin(115200);
   Console.begin();
@@ -158,9 +218,9 @@ void setup() {
   // Set up these settings once, and use them for both TX and RX
 
   // Use a frequency in the g3 which allows 10% duty cycling.
-  LMIC.freq = 915525000;
+  LMIC.freq = 915400000;
   // Maximum TX power
-  LMIC.txpow = 27;
+  LMIC.txpow = 30;
   // Use a medium spread factor. This can be increased up to SF12 for
   // better range, but then the interval should be (significantly)
   // lowered to comply with duty cycle limits as well.
