@@ -30,6 +30,10 @@
 #include <lmic.h>
 #include <hal/hal.h>
 #include <SPI.h>
+#include <Wire.h>
+#include "BME280.h"
+#include "Arduino.h"
+#include "BME280.h"
 
 //
 // For normal use, we require that you edit the sketch to replace FILLMEIN
@@ -66,7 +70,6 @@ void os_getArtEui (u1_t* buf) { }
 void os_getDevEui (u1_t* buf) { }
 void os_getDevKey (u1_t* buf) { }
 
-static uint8_t mydata[] = "Hello, world!";
 static osjob_t sendjob;
 
 // Schedule TX every this many seconds (might become longer due to duty
@@ -82,6 +85,21 @@ const lmic_pinmap lmic_pins = {
     .rst = 9,
     .dio = {2, 6, 7},
 };
+
+//Variables
+BME280 bmeInternal;
+BME280 bmeExternal;
+int _loopDelay = 10000;
+int _loudness = 0;
+uint8_t _tempIntStr[5];
+uint8_t _pressureIntStr[5];
+uint8_t _humidIntStr[5];
+uint8_t _tempExtStr[5];
+uint8_t _pressureExtStr[5];
+uint8_t _humidExtStr[5];
+uint8_t _weightStr[5];
+int _frameSize = 42;
+uint8_t _buffer[42];
 
 void onEvent (ev_t ev) {
     Serial.print(os_getTime());
@@ -170,17 +188,19 @@ void do_send(osjob_t* j){
     if (LMIC.opmode & OP_TXRXPEND) {
         Serial.println(F("OP_TXRXPEND, not sending"));
     } else {
-        // Prepare upstream data transmission at the next possible time.
-        LMIC_setTxData2(1, mydata, sizeof(mydata)-1, 0);
-        Serial.println(F("Packet queued"));
-        Serial.print(F("Sending packet on frequency: "));
-        Serial.println(LMIC.freq);
+
+      
+      updateSensorData(bmeInternal, bmeExternal);
+      // Prepare upstream data transmission at the next possible time.
+      LMIC_setTxData2(1, _buffer, strlen(_buffer), 0);
+      Serial.println(F("Packet queued"));
+      Serial.print(F("Sending packet on frequency: "));
+      Serial.println(LMIC.freq);
     }
     // Next TX is scheduled after TX_COMPLETE event.
 }
 
 void setup() {
-//    pinMode(13, OUTPUT); 
     while (!Serial); // wait for Serial to be initialized
     Serial.begin(115200);
     delay(100);     // per sample code on RF_95 test
@@ -192,6 +212,13 @@ void setup() {
     digitalWrite(VCC_ENABLE, HIGH);
     delay(1000);
     #endif
+
+    bmeInternal = BME280(0x76);
+    bmeInternal.begin();
+
+    bmeExternal = BME280(0x77);
+    bmeExternal.begin();
+  
 
     // LMIC init
     os_init();
@@ -274,4 +301,28 @@ void loop() {
       
     os_runloop_once();
     
+}
+
+
+void updateSensorData(BME280 bmeInternal, BME280 bmeExternal)
+{
+  // Temp, Barometer, Humidity 
+  dtostrf(bmeInternal.readTemp(), 5, 2, _tempIntStr);
+  dtostrf(bmeInternal.readPressure(), 5, 2, _pressureIntStr);
+  dtostrf(bmeInternal.readHumidity(), 5, 2, _humidIntStr);
+
+  dtostrf(bmeExternal.readTemp(), 5, 2, _tempExtStr);
+  dtostrf(bmeExternal.readPressure(), 5, 2, _pressureExtStr);
+  dtostrf(bmeExternal.readHumidity(), 5, 2, _humidExtStr);
+  
+  // Loudness
+  _loudness = analogRead(0);
+
+  // Weight - mocked due to additional hardware requirements
+  dtostrf(22.72, 5, 2, _weightStr);
+
+  sprintf(_buffer, "%s,%s,%s,%s,%s,%s,%s,%d", _tempIntStr, _pressureIntStr, _humidIntStr, _tempExtStr, _pressureExtStr, _humidExtStr, _weightStr, _loudness);
+
+ 
+
 }
