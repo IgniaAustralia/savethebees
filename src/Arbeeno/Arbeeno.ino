@@ -16,28 +16,30 @@
 #include <lmic.h>
 #include <hal/hal.h>
 #include <SPI.h>
-#include <SoftwareSerial.h>
+//#include <SoftwareSerial.h>
 #include <TinyGPS.h>
 //#include <Seeed_BME280.h>
 #include "BME280.h"
 #include "ReadSensors.h"
 
-TinyGPS gps;
-SoftwareSerial ss(3, 4); // Arduino TX, RX , 
+//TinyGPS gps;
+//SoftwareSerial ss(3, 4); // Arduino TX, RX , 
 
 
 //VARIABLES ---------------------------------------------------------------------------------------
 
-static void smartdelay(unsigned long ms);
+int delayMilli = 10000;
+//static void smartdelay(unsigned long ms);
 static void print_float(float val, float invalid, int len, int prec);
 static void print_int(unsigned long val, unsigned long invalid, int len);
-static void print_date(TinyGPS &gps);
+//static void print_date(TinyGPS &gps);
 static void print_str(const char *str, int len);
 float flat, flon;
 BME280 bmeInternal;
 BME280 bmeExternal;
 char flatStr[12];
 char flonStr[12];
+
 
 
 #if !defined(DISABLE_INVERT_IQ_ON_RX)
@@ -89,7 +91,7 @@ void setup() {
 
     // initialize both serial ports:
   Serial.begin(9600);  // Serial to print out GPS info in Arduino IDE
-  ss.begin(9600); // SoftSerial port to get GPS data. 
+  //ss.begin(9600); // SoftSerial port to get GPS data. 
   Serial.println("Starting");
   #ifdef VCC_ENABLE
   // For Pinoccio Scout boards
@@ -132,12 +134,12 @@ void loop() {
   unsigned short sentences = 0, failed = 0;
  // static const double LONDON_LAT = 51.508131, LONDON_LON = -0.128002;
 
-  gps.f_get_position(&flat, &flon, &age);
-  print_float(flat, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
-  print_float(flon, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
-  Serial.println();
+ // gps.f_get_position(&flat, &flon, &age);
+  //print_float(flat, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
+  //print_float(flon, TinyGPS::GPS_INVALID_F_ANGLE, 11, 6);
+  //Serial.println();
 
-  smartdelay(1000);
+  delay(delayMilli);
 }
 
 //---------------------------------------------------------------------------------------
@@ -183,30 +185,30 @@ static void txdone_func (osjob_t* job) {
 
 static void tx_func (osjob_t* job) {
 
-   char gpsBuffer[40+1];
-   strcpy(gpsBuffer, "");
+  // char gpsBuffer[40+1];
+  // strcpy(gpsBuffer, "");
   char bufferStr[110];
   char* sensors;
   sensors = getSensorData(bmeInternal, bmeExternal);
 
-  if (flat != TinyGPS::GPS_INVALID_F_ANGLE && flon != TinyGPS::GPS_INVALID_F_ANGLE)
-  {
+  //if (flat != TinyGPS::GPS_INVALID_F_ANGLE && flon != TinyGPS::GPS_INVALID_F_ANGLE)
+ // {
       //strcpy(gpsBuffer, "");
-      dtostrf(flat, 12, 6, flatStr);
-      dtostrf(flon, 12, 6, flonStr);
-  }
-  else
-  {
-    strcpy(flatStr, "*");
-    strcpy(flonStr, "*");
-  }
+ //     dtostrf(flat, 12, 6, flatStr);
+ //     dtostrf(flon, 12, 6, flonStr);
+//  }
+//  else
+//  {
+ //   strcpy(flatStr, "*");
+ //   strcpy(flonStr, "*");
+//  }
   
 
-  sprintf (bufferStr, "%s,%s,%s", sensors, flatStr, flonStr);
+  //sprintf (bufferStr, "%s,%s,%s", sensors, flatStr, flonStr);
   //sprintf (bufferStr, "%s,%s,%s", sensors, flat, flon);
   //sprintf (bufferStr, "%s-%s~%d", sensors, gpsBuffer);
-  Serial.println(bufferStr);
-  tx(bufferStr, txdone_func);
+  Serial.println(sensors);
+  tx(sensors, txdone_func);
     
   // reschedule job every TX_INTERVAL (plus a bit of random to prevent
   // systematic collisions), unless packets are received, then rx_func
@@ -238,15 +240,16 @@ static void print_float(float val, float invalid, int len, int prec)
 //---------------------------------------------------------------------------------------
 static void smartdelay(unsigned long ms)
 {
-  unsigned long start = millis();
-  do 
-  {
-    while (ss.available())
-    {
+
+  //unsigned long start = millis();
+  //do 
+  //{
+   // while (ss.available())
+   // {
       //ss.print(Serial.read());
-      gps.encode(ss.read());
-    }
-  } while (millis() - start < ms);
+   //   gps.encode(ss.read());
+   // }
+  //} while (millis() - start < ms);
 }
 
 //---------------------------------------------------------------------------------------
