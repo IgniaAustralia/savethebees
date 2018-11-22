@@ -91,15 +91,14 @@ BME280 bmeInternal;
 BME280 bmeExternal;
 int _loopDelay = 10000;
 int _loudness = 0;
-uint8_t _tempIntStr[5];
-uint8_t _pressureIntStr[5];
-uint8_t _humidIntStr[5];
-uint8_t _tempExtStr[5];
-uint8_t _pressureExtStr[5];
-uint8_t _humidExtStr[5];
-uint8_t _weightStr[5];
-int _frameSize = 42;
-uint8_t _buffer[42];
+uint8_t _tempIntStr[7];
+uint8_t _pressureIntStr[7];
+uint8_t _humidIntStr[7];
+uint8_t _tempExtStr[7];
+uint8_t _pressureExtStr[7];
+uint8_t _humidExtStr[7];
+uint8_t _weightStr[7];
+uint8_t _buffer[51];
 
 void onEvent (ev_t ev) {
     Serial.print(os_getTime());
