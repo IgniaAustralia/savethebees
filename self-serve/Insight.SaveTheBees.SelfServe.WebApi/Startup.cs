@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Insight.SaveTheBees.SelfServe.WebApi
 {
@@ -93,14 +94,9 @@ namespace Insight.SaveTheBees.SelfServe.WebApi
                 options.TokenCleanupInterval = 30;
             });
 
-            if (Environment.IsDevelopment())
-            {
-                identityServerbuilder.AddDeveloperSigningCredential();
-            }
-            else
-            {
-                throw new Exception("need to configure key material");
-            }
+            // Load certificate
+            var certificate = LoadCertificate();
+            identityServerbuilder.AddSigningCredential(certificate);
 
             // Register the authentication
             services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
@@ -153,6 +149,22 @@ namespace Insight.SaveTheBees.SelfServe.WebApi
                     services.AddScoped(serviceType);
                 }                
             }
+        }
+
+        private X509Certificate2 LoadCertificate()
+        {
+            using (var store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            {
+                // Find the certificate based on thumbprint
+                store.Open(OpenFlags.ReadOnly);
+                var collection = store.Certificates.Find(X509FindType.FindByIssuerName, "IdentityServerCN", false);
+                if (collection.Count > 0)
+                {
+                    return collection[0];
+                }
+            }
+
+            return null;
         }
 
         #endregion
