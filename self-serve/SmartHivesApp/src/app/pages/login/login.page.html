@@ -4,22 +4,37 @@
     </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <div style="text-align: center;">
-    <ion-img src="assets/ioBeez.png" style="width: 150px; height: auto;"></ion-img>
-  </div>
-  <ion-list>
-    <ion-item>
-      <ion-label fixed>Username</ion-label>
-      <ion-input type="text" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label fixed>Password</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-
-    <ion-button expand="full" size="large" (click)="logIn()">
-      Log In
-      <ion-icon slot="end" name="arrow-forward"></ion-icon>
-    </ion-button>
-  </ion-list>
+    <div>
+        <ion-img class="logo" src="assets/ioBeez.png"></ion-img>
+    </div>
+    <form class="" [formGroup]="loginForm" (submit)="logIntoApp()">
+        <ion-list>
+            <ion-item>
+                <ion-label color="primary" position="fixed">Username</ion-label>
+                <ion-input type="text" formControlName="username" required></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let errorMessage of errorMessages.username">
+                    <ion-text color="danger" *ngIf="loginForm.get('username').hasError(errorMessage.type) && (loginForm.get('username').dirty || loginForm.get('username').touched)">
+                        {{ errorMessage.message }}
+                    </ion-text>
+                </ng-container>
+            </div>
+            <ion-item>
+                <ion-label color="primary" position="fixed">Password</ion-label>
+                <ion-input type="password" formControlName="password" required></ion-input>
+            </ion-item>
+            <div class="validation-errors">
+                <ng-container *ngFor="let errorMessage of errorMessages.password">
+                    <ion-text color="danger" *ngIf="loginForm.get('password').hasError(errorMessage.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+                        {{ errorMessage.message }}
+                    </ion-text>
+                </ng-container>
+            </div>
+            <ion-button expand="full" size="large" type="submit">
+                Log In
+                <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            </ion-button>
+        </ion-list>
+    </form>
 </ion-content>
