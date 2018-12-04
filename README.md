@@ -17,3 +17,5 @@ For bee industry researchers who need to detect hive disease the Connected Hive 
 Unlike existing ad hoc hive metering and observations the Connected Hive:
 * provides access to a large repository of near real-time data
 * supports development of advanced and novel sensors
+
+2018
