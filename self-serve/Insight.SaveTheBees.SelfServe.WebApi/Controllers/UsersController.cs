@@ -40,7 +40,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         #endregion
 
         #region End Points
-
+        
         /// <summary>
         /// Creates the new user in both the identity and application databases.
         /// </summary>

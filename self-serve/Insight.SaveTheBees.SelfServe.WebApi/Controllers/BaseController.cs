@@ -1,10 +1,8 @@
 ﻿using Insight.SaveTheBees.SelfServe.WebApi.Models.Application.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
 {
@@ -14,6 +12,12 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
     /// </summary>
     public abstract class BaseController : ControllerBase
     {
+        #region Constants
+
+        private const string CONST_UserIdClaim = "user_id";
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -44,13 +48,12 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         /// </summary>
         /// <param name="userId">The user id to check permissions against.</param>
         /// <returns>True iif the user has permissions to access resources for user.</returns>
-        public async Task<bool> ValidatePermission(Guid userId)
+        public bool ValidatePermission(Guid userId)
         {
-            // Retrieve user
-            var username = GetUserName();
-            var user = await Context.Users.FirstOrDefaultAsync(x => x.UserId == userId);
-            if (user == null || user.UserName != username) return false;
-            return true;
+            // Retrieve user id from claim
+            var claimUserId = GetUserId();
+            if (claimUserId == Guid.Empty) return false;
+            return claimUserId == userId;
         }
 
         /// <summary>
@@ -74,10 +77,11 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         /// </summary>
         /// <param name="controller">The controller to get the user name from.</param>
         /// <returns>A user name as a string.</returns>
-        public string GetUserName()
+        public Guid GetUserId()
         {
-            if (User == null || User.Claims == null || !User.Claims.Any(x => x.Type == "username")) return string.Empty;
-            return User.Claims.FirstOrDefault(x => x.Type == "username").Value;
+            if (User == null || User.Claims == null || !User.Claims.Any(x => x.Type == CONST_UserIdClaim)) return Guid.Empty;
+            var value = User.Claims.FirstOrDefault(x => x.Type == CONST_UserIdClaim).Value;
+            return Guid.TryParse(value, out var userId) ? userId : Guid.Empty;
         }
 
         #endregion

@@ -55,7 +55,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> CreateCluster([FromRoute]Guid userId, [FromBody]ClusterDto cluster)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Create the cluster
             await AddClusterToDatabase(userId, cluster);
@@ -71,7 +71,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> RetrieveClusters([FromRoute]Guid userId)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Retrieve the clusters
             var clusters = await RetrieveClustersFromDatabase(userId);
@@ -89,7 +89,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> RetrieveCluster([FromRoute]Guid userId, [FromRoute]Guid clusterId)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Retrieve the cluster
             var cluster = await RetrieveClusterFromDatabase(clusterId);
@@ -108,7 +108,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> UpdateCluster([FromRoute]Guid userId, [FromRoute]Guid clusterId, [FromBody]ClusterDto cluster)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Check if the cluster exists
             try
@@ -137,7 +137,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> DeleteCluster([FromRoute]Guid userId, [FromRoute]Guid clusterId)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Check if the cluster exists
             try

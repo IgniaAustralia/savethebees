@@ -57,7 +57,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> CreateHive([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromBody]HiveDto hive)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Create the hive
             await AddHiveToDatabase(userId, clusterId, hive);
@@ -74,7 +74,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> RetrieveHives([FromRoute]Guid userId, [FromRoute]Guid? clusterId)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Retrieve the clusters
             var hives = await RetrieveHivesFromDatabase(userId, clusterId);
@@ -93,7 +93,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> RetrieveHive([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromRoute]Guid hiveId)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Retrieve the cluster
             var cluster = await RetrieveHiveFromDatabase(clusterId, hiveId);
@@ -113,7 +113,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> UpdateHive([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromRoute]Guid hiveId, [FromBody]HiveDto hive)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Check if the cluster exists
             try
@@ -143,7 +143,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         public async Task<IActionResult> DeleteCluster([FromRoute]Guid userId, [FromRoute]Guid? clusterId, [FromRoute]Guid hiveId)
         {
             // Validate permission
-            if (!await ValidatePermission(userId)) return Unauthorized();
+            if (!ValidatePermission(userId)) return Unauthorized();
 
             // Check if the cluster exists
             try
