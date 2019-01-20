@@ -4,6 +4,9 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>{{name}}</ion-title>
+      <ion-buttons slot="end" icon-only outline (click)="presentActionSheet()">
+          <ion-icon name="more"></ion-icon>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content padding>

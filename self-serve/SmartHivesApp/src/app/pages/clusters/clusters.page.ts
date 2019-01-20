@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
     selector: 'app-clusters',
@@ -7,7 +8,9 @@ import { NavController } from '@ionic/angular';
     styleUrls: ['clusters.page.scss'],
 })
 export class ClustersPage {
-    constructor(public navCtrl: NavController) { }
+    constructor(
+        private navCtrl: NavController,
+        private actionSheetController: ActionSheetController) { }
     clusters = [
         {
             id: 1,
@@ -20,5 +23,39 @@ export class ClustersPage {
     ];
     goToDetails(id: string) {
         this.navCtrl.navigateForward('/home/(clusters:clusters/' + id + ')');
+    }
+
+    async presentActionSheet() {
+        const actionSheet = await this.actionSheetController.create({
+            header: 'Action menu',
+            buttons: [{
+                text: 'Edit details',
+                role: 'destructive',
+                icon: 'create',
+                handler: () => {
+                    console.log('Edit clicked');
+                }
+            }, {
+                text: 'Change status',
+                icon: 'share',
+                handler: () => {
+                    console.log('Change status clicked');
+                }
+            }, {
+                text: 'Log event',
+                icon: 'add-circle',
+                handler: () => {
+                    console.log('Log event clicked');
+                }
+            }, {
+                text: 'Cancel',
+                icon: 'close',
+                role: 'cancel',
+                handler: () => {
+                    actionSheet.dismiss();
+                }
+            }]
+        });
+        await actionSheet.present();
     }
 }

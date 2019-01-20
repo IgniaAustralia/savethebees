@@ -12,4 +12,17 @@
 
 .validation-errors {
     font-size: 0.9em;
+} /*comment*/
+
+
+.header {
+    &-warning {
+        border-left: 4px #f04141 solid;
+        padding-left: 11px;
+    }
+
+    &-neutral {
+        border-left: 4px #0cd1e8 solid;
+        padding-left: 11px;
+    }
 }

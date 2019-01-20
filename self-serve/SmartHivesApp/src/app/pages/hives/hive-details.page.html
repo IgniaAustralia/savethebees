@@ -1,76 +1,125 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{name}}</ion-title>
-    <ion-buttons slot="end" icon-only outline (click)="presentActionSheet()">
-      <ion-icon name="more"></ion-icon> 
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{name}}</ion-title>
+        <ion-buttons slot="end" icon-only outline (click)="presentActionSheet()">
+            <ion-icon name="more"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 <ion-content padding>
-  <p>2 Brood boxes, 2 top boxes.</p>
-  <h3>Details</h3>
-  <ion-list>
-    <ion-item>
-      <ion-label>
-        <strong>Location: </strong>
-        <span>Pinjarrah</span>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <strong>Queen added: </strong>
-        <span>March 2018</span>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <h3>Data</h3>
-  <ion-list>
-    <ion-item>
-      <ion-label>
-        <strong>Internal temperature: </strong>
-        <span>31.4 deg</span>
-      </ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>
-        <strong>External temperature: </strong>
-        <span>21.2 deg</span>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <h3>Event log</h3>
-  <ion-card>
-    <!--<ion-card-header>
-      <ion-card-subtitle>Hive disturbed</ion-card-subtitle>
-    </ion-card-header>-->
-    <ion-card-content>
-      <h3>Hive disturbed</h3>
-      <p><small>20/10/2018 1:30pm</small></p>
-      <ion-button outline size="small">Add note</ion-button>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <!--<ion-card-header>
-      <ion-card-subtitle>Temperature warning</ion-card-subtitle>
-    </ion-card-header>-->
-    <ion-card-content>
-      <h3>Temperature warning</h3>
-      <p>The internal temperature dropped to 27 deg</p>
-      <small>06/07/2018 2:35am</small>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <!--<ion-card-header>
-      <ion-card-title>Inpection</ion-card-subtitle>
-    </ion-card-header>-->
-    <ion-card-content>
-      <h3>Inspection</h3>
-      <p>Good brood, queen spotted, some honey.</p>
-      <p><small>02/04/2018 11:38am</small></p>
-      <ion-button outline size="small">View details</ion-button>
-    </ion-card-content>
-  </ion-card>
+    <!--Text input area of beekeepers to add intro sentence about hive-->
+    <h2>Hive 27</h2>
+    <p>2 Brood boxes, 2 top boxes. Initial weight at 15kg.</p>
+    <h3>Details</h3>
+    <ion-list>
+        <ion-item>
+            <ion-label>
+                <strong>Status: </strong>
+                <span>Active</span>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <strong>Location: </strong>
+                <span>Pinjarrah</span>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <strong>Latitude: </strong>
+                <span>32.6172 Deg South</span>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <strong>Longitude: </strong>
+                <span>115.8771 Deg East</span>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <strong>Queen added: </strong>
+                <span>March 2018</span>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+    <h3>Real-time hive data</h3>
+    <ion-list>
+        <h5>Weight</h5>
+        <ion-item>
+            <ion-label>
+                <strong>Overall: </strong>
+                <span>16 kg</span>
+            </ion-label>
+        </ion-item>
+        <h5>Temperature</h5>
+        <ion-item>
+            <ion-label>
+                <strong>Internal: </strong>
+                <span>31.4 Deg</span>
+            </ion-label>
+            <ion-label>
+                <strong>External: </strong>
+                <span>21.2 Deg</span>
+            </ion-label>
+        </ion-item>
+        <h5>Humidity</h5>
+        <ion-item>
+            <ion-label>
+                <strong>Internal: </strong>
+                <span>22%</span>
+            </ion-label>
+            <ion-label>
+                <strong>External: </strong>
+                <span>34%</span>
+            </ion-label>
+        </ion-item>
+        <h5>Barometric pressure: </h5>
+        <ion-item>
+            <ion-label>
+                <strong>Internal: </strong>
+                <span>1018.9 hPa</span>
+            </ion-label>
+            <ion-label>
+                <strong>External: </strong>
+                <span>1018.9 hPa</span>
+            </ion-label>
+        </ion-item>
+        <h5>Noise</h5>
+        <ion-item>
+            <ion-label>
+                <strong>Frequency: </strong>
+                <span>850 dB</span>
+            </ion-label>
+        </ion-item>
+    </ion-list>
+
+
+
+    <!--Event log created by Beekeeper-->
+    <h3>Event log</h3>
+    <ion-card>
+        <ion-card-content>
+            <h3>Position moved</h3>
+            <p><small>20/10/2018 1:30pm</small></p>
+            <ion-button class="button" ng-click="modal.show()">Add note</ion-button>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <h3>Temperature warning</h3>
+            <p>The internal temperature dropped to 27 deg</p>
+            <small>06/07/2018 2:35am</small>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <h3>Inspection</h3>
+            <p>Good brood, queen spotted, some honey.</p>
+            <p><small>02/04/2018 11:38am</small></p>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

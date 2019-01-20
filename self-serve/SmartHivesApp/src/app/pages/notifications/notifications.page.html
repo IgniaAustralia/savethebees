@@ -7,13 +7,55 @@
     <ion-card>
         <ion-item>
             <ion-icon name="move" slot="start"></ion-icon>
-            <ion-label>Hive disturbed</ion-label>
-            <ion-button fill="outline" slot="end">View</ion-button>
+            <ion-label>
+                <Strong>Hive 27</Strong><br />
+                <span>Position moved</span>
+            </ion-label>
+            <ion-button fill="outline" slot="end" (click)="goToDetails(hive.id)">View Hive</ion-button>
+        </ion-item>
+        <ion-card-content>
+            The position of your hive has moved.
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-icon name="arrow-dropup" slot="start"></ion-icon>
+            <ion-label>
+                <Strong>Hive 27</Strong><br />
+                <span>Volume increase</span>
+            </ion-label>
+            <ion-button fill="outline" slot="end">View Hive</ion-button>
+        </ion-item>
+        <ion-card-content>
+            The volume of the hive has exceeded the optimum level.
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-icon name="beaker" slot="start"></ion-icon>
+            <ion-label>
+                <Strong>Hive 36</Strong><br />
+                <span>Full Capacity</span>
+            </ion-label>
+                <ion-button fill="outline" slot="end">View Hive</ion-button>
+            </ion-item>
+
+        <ion-card-content>
+            The hive is at maximum capacity - time to collect the honey!
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <ion-icon name="cloud-upload" slot="start"></ion-icon>
+            <ion-label>
+                <Strong>Hive 36</Strong>  <br />
+                <span>Pressure alert</span>
+            </ion-label>
+            <ion-button fill="outline" slot="end">View Hive</ion-button>
         </ion-item>
 
         <ion-card-content>
-            This is content, without any paragraph or header tags,
-            within an ion-card-content element.
+            The pressure inside the hive is at a critical level.
         </ion-card-content>
     </ion-card>
 </ion-content>
