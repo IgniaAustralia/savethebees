@@ -1,8 +1,11 @@
-﻿using Insight.SaveTheBees.SelfServe.WebApi.Exceptions;
+﻿using AutoMapper;
+using Insight.SaveTheBees.SelfServe.WebApi.Exceptions;
 using Insight.SaveTheBees.SelfServe.WebApi.Models.Application;
 using Insight.SaveTheBees.SelfServe.WebApi.Models.Application.Data;
 using Insight.SaveTheBees.SelfServe.WebApi.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +24,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         #region Members
 
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
         #endregion
 
@@ -32,9 +36,10 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         /// </summary>
         /// <param name="userService">The user service.</param>
         /// <param name="context">The application DB context.</param>
-        public UsersController(IUserService userService, ApplicationDbContext context) : base(context)
+        public UsersController(IUserService userService, IMapper mapper, ApplicationDbContext context) : base(context)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         #endregion
@@ -46,6 +51,7 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
         /// </summary>
         /// <param name="user">The user to be created.</param>
         /// <returns>Action result for the end point.</returns>
+        /// <remarks>PUT - /api/users</remarks>
         [HttpPut]
         public async Task<IActionResult> CreateUser([FromBody]UserDto user)
         {
@@ -71,7 +77,27 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             }
 
             return NoContent();
-        }        
+        }
+
+        /// <summary>
+        /// Retrieve the users.
+        /// </summary>
+        /// <param name="userName">The username to retrieve users by.</param>
+        /// <returns>Action result for the end point.</returns>
+        /// <remarks>GET - /api/users</remarks>
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        public async Task<IActionResult> RetrieveUsers([FromQuery]string userName)
+        {
+            // Retrieve users from database
+            var users = await RetrieveUsersFromDatabase(userName);
+
+            // Filter out any that do not have permission
+            users = users.Where(x => ValidatePermission(x.UserId)).ToList();
+
+            if (!users.Any()) return NotFound();
+            return new JsonResult(users);
+        } 
 
         #endregion
 
@@ -91,23 +117,14 @@ namespace Insight.SaveTheBees.SelfServe.WebApi.Controllers
             return false;
         }
 
-        //private async Task<User> CreateIdentityUser(UserDto user)
-        //{
-        //    var dbUser = _mapper.Map<User>(user);
-
-        //    // Create user
-        //    var result = await _userManager.CreateAsync(dbUser, user.Password);
-        //    if (!result.Succeeded)
-        //    {
-        //        throw new IdentityErrorsException(result.Errors.ToList());
-        //    }
-
-        //    // Set user claims
-        //    var claims = new List<Claim>();
-        //    result = await _userManager.AddClaimsAsync()
-
-        //    return dbUser;
-        //}
+        private async Task<IList<UserOutputDto>> RetrieveUsersFromDatabase(string userName)
+        {
+            var users =
+                string.IsNullOrEmpty(userName)
+                    ? await Context.Users.ToListAsync()
+                    : await Context.Users.Where(x => x.UserName == userName).ToListAsync();
+            return _mapper.Map<IList<UserOutputDto>>(users);
+        }
 
         #endregion
     }
